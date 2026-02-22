@@ -24,38 +24,38 @@
 class_name DataLoader
 
 static func get_tiled_file_content(file_name: String, base_path: String):
-    var checked_file = file_name
-    if not FileAccess.file_exists(checked_file):
-        checked_file = base_path.path_join(file_name)
-    if not FileAccess.file_exists(checked_file): return null
+	var checked_file = file_name
+	if not FileAccess.file_exists(checked_file):
+		checked_file = base_path.path_join(file_name)
+	if not FileAccess.file_exists(checked_file): return null
 
-    var file = FileAccess.open(checked_file, FileAccess.ModeFlags.READ)
-    var ret = file.get_buffer(file.get_length())
-    return ret
+	var file = FileAccess.open(checked_file, FileAccess.ModeFlags.READ)
+	var ret = file.get_buffer(file.get_length())
+	return ret
 
 static func load_image(file_name: String, base_path: String):
-    var checked_file = file_name
-    if not FileAccess.file_exists(checked_file):
-        checked_file = base_path.path_join(file_name)
-    if not FileAccess.file_exists(checked_file):
-        printerr("ERROR: Image file '" + file_name + "' not found.")
-        CommonUtils.error_count += 1
-        return null
+	var checked_file = file_name
+	if not FileAccess.file_exists(checked_file):
+		checked_file = base_path.path_join(file_name)
+	if not FileAccess.file_exists(checked_file):
+		printerr("ERROR: Image file '" + file_name + "' not found.")
+		CommonUtils.error_count += 1
+		return null
 
-    var exists = ResourceLoader.exists(checked_file, "Image")
-    if exists:
-        return ResourceLoader.load(checked_file)
+	var exists = ResourceLoader.exists(checked_file, "Image")
+	if exists:
+		return ResourceLoader.load(checked_file)
 
-    var image = Image.load_from_file(checked_file)
-    return ImageTexture.create_from_image(image)
+	var image = Image.load_from_file(checked_file)
+	return ImageTexture.create_from_image(image)
 
 static func load_resource_from_file(resource_file: String, base_path: String):
-    var checked_file = resource_file
-    if not FileAccess.file_exists(checked_file):
-        checked_file = base_path.path_join(resource_file)
-    if FileAccess.file_exists(checked_file):
-        return ResourceLoader.load(checked_file)
+	var checked_file = resource_file
+	if not FileAccess.file_exists(checked_file):
+		checked_file = base_path.path_join(resource_file)
+	if FileAccess.file_exists(checked_file):
+		return ResourceLoader.load(checked_file)
 
-    printerr("ERROR: Resource file '" + resource_file + "' not found.")
-    CommonUtils.error_count += 1
-    return null
+	printerr("ERROR: Resource file '" + resource_file + "' not found.")
+	CommonUtils.error_count += 1
+	return null
