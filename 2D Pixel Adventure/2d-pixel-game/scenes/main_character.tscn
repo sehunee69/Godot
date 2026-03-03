@@ -1,8 +1,8 @@
-[gd_scene load_steps=60 format=3 uid="uid://b8greh8xc1vgr"]
+[gd_scene format=3 uid="uid://b8greh8xc1vgr"]
 
 [ext_resource type="Script" uid="uid://bv8hlu1adwsgv" path="res://scenes/main_character.gd" id="1_ig48j"]
 [ext_resource type="Texture2D" uid="uid://yjmhbjkxgfm0" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/Soldier.png" id="2_k0aba"]
-[ext_resource type="Texture2D" uid="uid://ujkicgfp8peh" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier(Split Effects)/Soldier.png" id="3_0d0nc"]
+[ext_resource type="Texture2D" uid="uid://dxmvb38njt57u" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack03.png" id="3_d3a2h"]
 [ext_resource type="Texture2D" uid="uid://crxi82j5vreig" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/Soldier-Idle.png" id="3_ogw1n"]
 [ext_resource type="Texture2D" uid="uid://dhgsjdt5lfwki" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/Soldier-Walk.png" id="4_0d0nc"]
 [ext_resource type="Texture2D" uid="uid://savlbnt3klb0" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/image.png" id="5_d3a2h"]
@@ -36,33 +36,41 @@ region = Rect2(400, 200, 100, 100)
 atlas = ExtResource("2_k0aba")
 region = Rect2(500, 200, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d3a2h"]
-atlas = ExtResource("3_0d0nc")
-region = Rect2(0, 400, 100, 100)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_t3ps3"]
-atlas = ExtResource("3_0d0nc")
-region = Rect2(100, 400, 100, 100)
+atlas = ExtResource("3_d3a2h")
+region = Rect2(0, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wglxi"]
-atlas = ExtResource("3_0d0nc")
-region = Rect2(200, 400, 100, 100)
+atlas = ExtResource("3_d3a2h")
+region = Rect2(100, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_08vls"]
-atlas = ExtResource("3_0d0nc")
-region = Rect2(300, 400, 100, 100)
+atlas = ExtResource("3_d3a2h")
+region = Rect2(200, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mksh2"]
-atlas = ExtResource("3_0d0nc")
-region = Rect2(400, 400, 100, 100)
+atlas = ExtResource("3_d3a2h")
+region = Rect2(300, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tqkox"]
-atlas = ExtResource("3_0d0nc")
-region = Rect2(500, 400, 100, 100)
+atlas = ExtResource("3_d3a2h")
+region = Rect2(400, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cenl8"]
-atlas = ExtResource("3_0d0nc")
-region = Rect2(600, 400, 100, 100)
+atlas = ExtResource("3_d3a2h")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5b6fy"]
+atlas = ExtResource("3_d3a2h")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wonw"]
+atlas = ExtResource("3_d3a2h")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0s77"]
+atlas = ExtResource("3_d3a2h")
+region = Rect2(800, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8rh4e"]
 atlas = ExtResource("2_k0aba")
@@ -231,9 +239,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d3a2h")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_t3ps3")
 }, {
 "duration": 1.0,
@@ -250,10 +255,19 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cenl8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5b6fy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2wonw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0s77")
 }],
 "loop": true,
 "name": &"bow",
-"speed": 8.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -394,63 +408,62 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_k0aba"]
 radius = 13.0
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" unique_id=1557235466]
 collision_layer = 3
 script = ExtResource("1_ig48j")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1274304559]
 visible = false
 z_index = 1
 y_sort_enabled = true
 position = Vector2(0.5, -1.5)
 shape = SubResource("RectangleShape2D_ig48j")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=442329789]
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_t3ps3")
-animation = &"bow"
-frame_progress = 0.312405
+animation = &"idle"
+frame_progress = 0.4994591
 offset = Vector2(0, -5)
 
-[node name="player_hitbox" type="Area2D" parent="."]
+[node name="player_hitbox" type="Area2D" parent="." unique_id=1515897014]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox" unique_id=182722739]
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_k0aba")
 
-[node name="attack_cooldown_timer" type="Timer" parent="."]
+[node name="attack_cooldown_timer" type="Timer" parent="." unique_id=186734035]
 wait_time = 0.5
 one_shot = true
 
-[node name="deal_attack_timer" type="Timer" parent="."]
+[node name="deal_attack_timer" type="Timer" parent="." unique_id=266025377]
 wait_time = 0.4
 one_shot = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.5, 2.5)
+[node name="Camera2D" type="Camera2D" parent="." unique_id=783191418]
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 
-[node name="damage_timer" type="Timer" parent="."]
+[node name="damage_timer" type="Timer" parent="." unique_id=1344275690]
 wait_time = 0.3
 one_shot = true
 
-[node name="death_timer" type="Timer" parent="."]
+[node name="death_timer" type="Timer" parent="." unique_id=1664299395]
 one_shot = true
 
-[node name="take_damage_cooldown" type="Timer" parent="."]
+[node name="take_damage_cooldown" type="Timer" parent="." unique_id=1458053920]
 wait_time = 0.5
 one_shot = true
 
-[node name="sfx_swordHit" type="AudioStreamPlayer2D" parent="."]
+[node name="sfx_swordHit" type="AudioStreamPlayer2D" parent="." unique_id=1559136130]
 stream = ExtResource("7_0d0nc")
 volume_db = -6.0
 
-[node name="sfx_specialHit" type="AudioStreamPlayer2D" parent="."]
+[node name="sfx_specialHit" type="AudioStreamPlayer2D" parent="." unique_id=1022454109]
 stream = ExtResource("8_d3a2h")
 volume_db = -6.0
 
-[node name="bow_attack_timer" type="Timer" parent="."]
+[node name="bow_attack_timer" type="Timer" parent="." unique_id=1125412140]
 wait_time = 1.5
 one_shot = true
 

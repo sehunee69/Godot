@@ -13,6 +13,10 @@ var attack_ip = false
 var current_dir = "none"
 var can_attack = true
 
+var locked_target = null
+var nearby_enemies = []
+var lock_on_active = false
+
 const SPEED = 100
 
 # --- Ready ---
@@ -23,35 +27,43 @@ func _ready():
 func _physics_process(delta):
 	if not is_dead and not is_taking_damage:
 		player_movement()
-
 	if health <= 0 and not is_dead:
 		die()
-
 	attack()
+	clear_target_if_dead()
+	
+	if lock_on_active and locked_target != null:
+		if locked_target.global_position.x < global_position.x:
+			current_dir = "left"
+		else:
+			current_dir = "right"
 
 # --- Movement ---
 func player_movement():
 	if Input.is_action_pressed("ui_right"):
 		current_dir = "right"
-		play_anim("walking")
+		if not attack_ip:
+			play_anim("walking")
 		velocity = Vector2(SPEED, 0)
 	elif Input.is_action_pressed("ui_left"):
 		current_dir = "left"
-		play_anim("walking")
+		if not attack_ip:
+			play_anim("walking")
 		velocity = Vector2(-SPEED, 0)
 	elif Input.is_action_pressed("ui_down"):
 		current_dir = "down"
-		play_anim("walking")
+		if not attack_ip:
+			play_anim("walking")
 		velocity = Vector2(0, SPEED)
 	elif Input.is_action_pressed("ui_up"):
 		current_dir = "up"
-		play_anim("walking")
+		if not attack_ip:
+			play_anim("walking")
 		velocity = Vector2(0, -SPEED)
 	else:
 		velocity = Vector2.ZERO
 		if not attack_ip:
 			play_anim("idle")
-
 	move_and_slide()
 
 # --- Animations ---
@@ -92,22 +104,23 @@ func _on_death_timer_timeout():
 func attack():
 	if is_dead or is_taking_damage or not can_attack:
 		return
-
+	
+	if Input.is_action_just_pressed("lock_on"):
+		lock_on()
+	
 	if Input.is_action_just_pressed("attack"):
 		attack_ip = true
 		can_attack = false
 		_play_attack_anim("attack")
 		sfx_sword_hit.play()
 		$attack_cooldown_timer.start()
-
 	elif Input.is_action_just_pressed("specialAttack"):
 		attack_ip = true
 		can_attack = false
 		_play_attack_anim("special_attack")
 		sfx_special_hit.play()
 		$attack_cooldown_timer.start()
-		
-	elif Input.is_action_just_pressed('bow'):
+	elif Input.is_action_just_pressed("bow"):
 		attack_ip = true
 		can_attack = false
 		_play_attack_anim("bow")
@@ -138,5 +151,49 @@ func _on_attack_cooldown_timer_timeout():
 func _on_bow_attack_timer_timeout():
 	can_attack = true
 
+func lock_on():
+	# Get all enemies in range
+	nearby_enemies = []
+	for body in $lock_on_area.get_overlapping_bodies():
+		if body.is_in_group("enemies") and not body.is_dead:
+			nearby_enemies.append(body)
+	
+	if nearby_enemies.is_empty():
+		locked_target = null
+		lock_on_active = false
+		return
+		
+	# If no target yet, pick the closest one	
+	if locked_target == null or not lock_on_active:
+		locked_target = get_closest_enemy()
+		lock_on_active = true
+	else:
+		# Cycle to next enemy in list
+		var current_index = nearby_enemies.find(locked_target)
+		var next_index = (current_index + 1) % nearby_enemies.size()
+		locked_target = nearby_enemies[next_index]
+
+func get_closest_enemy():
+	var closest = null
+	var closest_dist = INF
+	for enemy in nearby_enemies:
+		var dist = global_position.distance_to(enemy.global_position)
+		if dist < closest_dist:
+			closest_dist = dist
+			closest = enemy
+	return closest
+	
+func clear_target_if_dead():
+	if locked_target != null and locked_target.is_dead:
+		locked_target = null
+		lock_on_active = false
+		lock_on()
+		
+
+		
 func player():
 	pass
+
+
+func _on_area_2d_body_entered(body):
+	pass # Replace with function body.
