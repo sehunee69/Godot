@@ -1,0 +1,224 @@
+[gd_scene format=3 uid="uid://t5eqrlxo8f27"]
+
+[ext_resource type="Texture2D" uid="uid://bpfvku8o13v4y" path="res://Assets/inventoryDesign.png" id="1_psafj"]
+[ext_resource type="Script" uid="uid://co830w0if06q" path="res://slot.gd" id="3_5tt2m"]
+[ext_resource type="Texture2D" uid="uid://b7lt81o48dfva" path="res://Assets/emptySlot.png" id="4_dw5ng"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_psafj"]
+texture = ExtResource("4_dw5ng")
+
+[node name="Control" type="Control" unique_id=1984199847]
+layout_mode = 3
+anchor_left = 0.062000003
+anchor_top = 0.102000006
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -119.04001
+offset_top = -110.16
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=327332028]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.43300003
+anchor_top = 0.446
+anchor_right = 0.43300003
+anchor_bottom = 0.446
+offset_left = -118.36005
+offset_top = -57.680023
+offset_right = 193.63995
+offset_bottom = 70.31998
+texture = ExtResource("1_psafj")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TextureRect" unique_id=64690315]
+layout_mode = 0
+offset_left = 119.0
+offset_top = 10.0
+offset_right = 306.0
+offset_bottom = 116.0
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="TextureRect/ScrollContainer" unique_id=145080760]
+layout_mode = 2
+columns = 5
+
+[node name="Slot" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1108678339]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot2" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1080109365]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot3" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1895584442]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot4" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=2099162231]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot5" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1323506994]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot6" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=741182004]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot7" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1707512257]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot8" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1387031457]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot9" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=205482172]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot10" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1376229355]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot11" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1812029124]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot12" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=480528006]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot13" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1028803301]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot14" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1468808194]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot15" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=294991336]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot16" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=466522910]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot17" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=611464159]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot18" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=527876898]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot19" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=156317528]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot20" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=209002632]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot21" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=560759009]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot22" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1235455537]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot23" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1944592461]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot24" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1779132344]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot25" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1031286178]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot26" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=349136500]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot27" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1224879928]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot28" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=786128046]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot29" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=708255515]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")
+
+[node name="Slot30" type="Panel" parent="TextureRect/ScrollContainer/GridContainer" unique_id=1223140310]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_psafj")
+script = ExtResource("3_5tt2m")

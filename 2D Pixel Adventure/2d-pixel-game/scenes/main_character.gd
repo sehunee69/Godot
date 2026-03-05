@@ -4,6 +4,10 @@ extends CharacterBody2D
 @onready var sfx_sword_hit: AudioStreamPlayer2D = $sfx_swordHit
 @onready var sfx_special_hit: AudioStreamPlayer2D = $sfx_specialHit
 
+# -- This is for the Inventory Rawr ---
+var inventory_scene = preload("res://inventory.tscn")
+var inventory_instance = null
+var inventory_open = false
 
 var enemy_inattack_range = false
 var health = 100
@@ -37,6 +41,34 @@ func _physics_process(delta):
 			current_dir = "left"
 		else:
 			current_dir = "right"
+
+# --- Zeee Inventory ---
+func _unhandled_input(event):
+	if event.is_action_pressed("Inventory"):
+		toggle_inventory()
+		
+func toggle_inventory():
+	if not inventory_open:
+		var canvas_layer = CanvasLayer.new()
+		canvas_layer.name = "InventoryLayer"
+		get_tree().current_scene.add_child(canvas_layer)
+
+		inventory_instance = inventory_scene.instantiate()
+		canvas_layer.add_child(inventory_instance)
+
+		await get_tree().process_frame
+		var screen_size = get_viewport().get_visible_rect().size
+		var inventory_size = inventory_instance.get_rect().size
+		inventory_instance.position = (screen_size - inventory_size) / 2
+
+		inventory_open = true
+	else:
+		if inventory_instance != null:
+			var canvas_layer = get_tree().current_scene.get_node_or_null("InventoryLayer")
+			if canvas_layer:
+				canvas_layer.queue_free()
+			inventory_instance = null
+		inventory_open = false
 
 # --- Movement ---
 func player_movement():
@@ -105,7 +137,7 @@ func attack():
 	if is_dead or is_taking_damage or not can_attack:
 		return
 	
-	if Input.is_action_just_pressed("lock_on"):
+	if Input.is_action_just_pressed("lock_opponent"):
 		lock_on()
 	
 	if Input.is_action_just_pressed("attack"):
