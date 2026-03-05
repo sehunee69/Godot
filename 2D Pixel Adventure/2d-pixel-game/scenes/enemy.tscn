@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://dw8dtocnd66vc"]
+[gd_scene format=3 uid="uid://dw8dtocnd66vc"]
 
 [ext_resource type="Texture2D" uid="uid://40q58wa6ov8v" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc with shadows/Orc.png" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://c77pso52oifdb" path="res://scenes/enemy.gd" id="1_md0e3"]
@@ -496,62 +496,63 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_78kod"]
 radius = 79.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_605iw"]
-size = Vector2(5, 12.75)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
 radius = 16.0
 
-[node name="enemy" type="CharacterBody2D" groups=["enemies"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_605iw"]
+size = Vector2(5, 12.75)
+
+[node name="enemy" type="CharacterBody2D" unique_id=61497008 groups=["enemies"]]
+collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_md0e3")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=614770253]
 sprite_frames = SubResource("SpriteFrames_2sbpf")
 animation = &"idle"
 frame_progress = 0.705053
 
-[node name="detection_Area" type="Area2D" parent="."]
+[node name="detection_Area" type="Area2D" parent="." unique_id=408206092]
 collision_layer = 2
-collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_Area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_Area" unique_id=1592874507]
 shape = SubResource("CircleShape2D_78kod")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -0.625)
-shape = SubResource("RectangleShape2D_605iw")
+[node name="enemy_hitbox" type="Area2D" parent="." unique_id=846486460]
+collision_layer = 2
 
-[node name="enemy_hitbox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_hitbox" unique_id=1350893983]
 position = Vector2(1, 0)
 shape = SubResource("CircleShape2D_md0e3")
 
-[node name="take_damage_cooldown" type="Timer" parent="."]
+[node name="take_damage_cooldown" type="Timer" parent="." unique_id=1217051295]
 wait_time = 0.5
 
-[node name="attack_cooldown" type="Timer" parent="."]
+[node name="attack_cooldown" type="Timer" parent="." unique_id=413600131]
 wait_time = 1.2
 one_shot = true
 
-[node name="death_timer" type="Timer" parent="."]
+[node name="death_timer" type="Timer" parent="." unique_id=2060388706]
 wait_time = 0.8
 
-[node name="deal_damage_timer" type="Timer" parent="."]
+[node name="deal_damage_timer" type="Timer" parent="." unique_id=238556043]
 wait_time = 2.0
 
-[node name="attack_damage_timer" type="Timer" parent="."]
+[node name="attack_damage_timer" type="Timer" parent="." unique_id=1588813795]
 wait_time = 0.6
 one_shot = true
 
-[node name="fx_axeHit" type="AudioStreamPlayer2D" parent="."]
+[node name="fx_axeHit" type="AudioStreamPlayer2D" parent="." unique_id=1420557511]
 stream = ExtResource("3_4ra3w")
 volume_db = -6.0
 
-[node name="fx_death" type="AudioStreamPlayer2D" parent="."]
+[node name="fx_death" type="AudioStreamPlayer2D" parent="." unique_id=1830620190]
 stream = ExtResource("4_5uy6h")
 volume_db = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=890044713]
+position = Vector2(0.5, -0.625)
+shape = SubResource("RectangleShape2D_605iw")
 
 [connection signal="body_entered" from="detection_Area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_Area" to="." method="_on_detection_area_body_exited"]

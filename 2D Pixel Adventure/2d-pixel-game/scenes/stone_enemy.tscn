@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://fa825gtd087a"]
+[gd_scene format=3 uid="uid://fa825gtd087a"]
 
 [ext_resource type="Script" uid="uid://t3dd4xqq6gsl" path="res://stone_enemy.gd" id="1_fy5d8"]
 [ext_resource type="Texture2D" uid="uid://40q58wa6ov8v" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc with shadows/Orc.png" id="2_4kuyw"]
@@ -496,62 +496,66 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_78kod"]
 radius = 94.0053
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_605iw"]
-size = Vector2(26, 22)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
 radius = 16.0
 
-[node name="stone_enemy" type="CharacterBody2D" groups=["enemies"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_605iw"]
+size = Vector2(26, 22)
+
+[node name="stone_enemy" type="CharacterBody2D" unique_id=718906583 groups=["enemies"]]
 motion_mode = 1
 script = ExtResource("1_fy5d8")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=307478430]
 sprite_frames = SubResource("SpriteFrames_2sbpf")
 animation = &"stone_idle"
 frame_progress = 0.245718
 
-[node name="detection_Area" type="Area2D" parent="."]
+[node name="detection_Area" type="Area2D" parent="." unique_id=1882982935]
 collision_layer = 2
-collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_Area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_Area" unique_id=804402489]
 shape = SubResource("CircleShape2D_78kod")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 1)
-shape = SubResource("RectangleShape2D_605iw")
+[node name="enemy_hitbox" type="Area2D" parent="." unique_id=1020146800]
+collision_layer = 2
 
-[node name="enemy_hitbox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_hitbox" unique_id=435201938]
 position = Vector2(1, 0)
 shape = SubResource("CircleShape2D_md0e3")
 
-[node name="take_damage_cooldown" type="Timer" parent="."]
+[node name="take_damage_cooldown" type="Timer" parent="." unique_id=271689668]
 wait_time = 0.5
 
-[node name="attack_cooldown" type="Timer" parent="."]
+[node name="attack_cooldown" type="Timer" parent="." unique_id=250463805]
 wait_time = 1.2
 one_shot = true
 
-[node name="death_timer" type="Timer" parent="."]
+[node name="death_timer" type="Timer" parent="." unique_id=1813336796]
 wait_time = 0.8
 
-[node name="deal_damage_timer" type="Timer" parent="."]
+[node name="deal_damage_timer" type="Timer" parent="." unique_id=417851210]
 wait_time = 2.0
 
-[node name="attack_damage_timer" type="Timer" parent="."]
+[node name="attack_damage_timer" type="Timer" parent="." unique_id=2058033116]
 wait_time = 0.6
 one_shot = true
 
-[node name="fx_axeHit" type="AudioStreamPlayer2D" parent="."]
+[node name="fx_axeHit" type="AudioStreamPlayer2D" parent="." unique_id=1845638167]
 stream = ExtResource("4_rb1yf")
 volume_db = -6.0
 
-[node name="fx_death" type="AudioStreamPlayer2D" parent="."]
+[node name="fx_death" type="AudioStreamPlayer2D" parent="." unique_id=1553114130]
 stream = ExtResource("5_xmo02")
 volume_db = 2.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1485912466]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2142271760]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_605iw")
 
 [connection signal="body_entered" from="detection_Area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_Area" to="." method="_on_detection_area_body_exited"]

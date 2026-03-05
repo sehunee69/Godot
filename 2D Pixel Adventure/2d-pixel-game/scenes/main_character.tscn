@@ -9,9 +9,6 @@
 [ext_resource type="AudioStream" uid="uid://ds6eaup44ujix" path="res://sounds/sound-fx/sword-blade-slicing-flesh-352708.mp3" id="7_0d0nc"]
 [ext_resource type="AudioStream" uid="uid://dcxcphfcbvpkt" path="res://sounds/sound-fx/sword-slashing-game-sound-effect-2-379229.mp3" id="8_d3a2h"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ig48j"]
-size = Vector2(7, 7)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ltrl"]
 atlas = ExtResource("2_k0aba")
 region = Rect2(0, 200, 100, 100)
@@ -258,16 +255,21 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5b6fy")
+}],
+"loop": false,
+"name": &"bow_draw",
+"speed": 8.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2wonw")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_d0s77")
 }],
-"loop": true,
-"name": &"bow",
-"speed": 15.0
+"loop": false,
+"name": &"bow_shoot",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -408,25 +410,26 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_k0aba"]
 radius = 13.0
 
-[node name="player" type="CharacterBody2D" unique_id=1557235466]
-collision_layer = 3
-script = ExtResource("1_ig48j")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ig48j"]
+size = Vector2(7, 7)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1274304559]
-visible = false
-z_index = 1
-y_sort_enabled = true
-position = Vector2(0.5, -1.5)
-shape = SubResource("RectangleShape2D_ig48j")
+[sub_resource type="CircleShape2D" id="CircleShape2D_d3a2h"]
+radius = 298.0151
+
+[node name="player" type="CharacterBody2D" unique_id=1557235466]
+collision_mask = 3
+script = ExtResource("1_ig48j")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=442329789]
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_t3ps3")
-animation = &"idle"
-frame_progress = 0.4994591
+animation = &"bow_draw"
+frame = 6
+frame_progress = 1.0
 offset = Vector2(0, -5)
 
 [node name="player_hitbox" type="Area2D" parent="." unique_id=1515897014]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox" unique_id=182722739]
 position = Vector2(0, -5)
@@ -466,6 +469,19 @@ volume_db = -6.0
 [node name="bow_attack_timer" type="Timer" parent="." unique_id=1125412140]
 wait_time = 1.5
 one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1274304559]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(0.5, -1.5)
+shape = SubResource("RectangleShape2D_ig48j")
+
+[node name="lock_on_area" type="Area2D" parent="." unique_id=1889902617]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="lock_on_area" unique_id=1632614809]
+position = Vector2(3, 1)
+shape = SubResource("CircleShape2D_d3a2h")
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
