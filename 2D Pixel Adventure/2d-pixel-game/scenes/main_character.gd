@@ -19,6 +19,11 @@ var inventory_open = false
 # --- Arrow ---
 var arrow_scene = preload("res://arrow.tscn")
 
+# --- Knockback ---
+var knockback_force = Vector2.ZERO
+var knockback_strength = 150.0
+var knockback_decay = 600.0
+
 # --- Stats ---
 var health = 100
 var is_taking_damage = false
@@ -63,6 +68,13 @@ func _ready():
 # MAIN LOOP
 # ─────────────────────────────────────────────
 func _physics_process(delta):
+	# Add this at the top of _physics_process
+	if knockback_force.length() > 0.1:
+		velocity = knockback_force
+		move_and_slide()
+		knockback_force = knockback_force.move_toward(Vector2.ZERO, knockback_decay * delta)
+		return
+
 	if not is_dead and not is_taking_damage:
 		player_movement()
 
@@ -72,6 +84,10 @@ func _physics_process(delta):
 	attack()
 	_process_bow(delta)
 	_process_lock_on()
+
+func apply_knockback(source_position: Vector2):
+	var direction = (global_position - source_position).normalized()
+	knockback_force = direction * knockback_strength
 
 # ─────────────────────────────────────────────
 # HEALTH BAR UI
@@ -210,10 +226,20 @@ func attack():
 		sfx_special_hit.play()
 		$attack_cooldown_timer.start()
 
+func _deal_melee_damage():
+	for body in $player_hitbox.get_overlapping_bodies():
+		if body.is_in_group("enemies") and body.has_method("take_damage"):
+			body.take_damage(20)
+			print("Enemy hit!")
+		if body.has_method("apply_knockback"):
+			body.apply_knockback(global_position)
+
 func _play_attack_anim(anim_name: String):
 	$AnimatedSprite2D.flip_h = (current_dir == "left")
 	$AnimatedSprite2D.play(anim_name)
 	$deal_attack_timer.start()
+
+
 
 # ─────────────────────────────────────────────
 # BOW SYSTEM
@@ -313,13 +339,8 @@ func _fire_arrow():
 # HIT WINDOW (melee)
 # ─────────────────────────────────────────────
 func _on_deal_attack_timer_timeout():
-	attack_ip = false
-	for body in $player_hitbox.get_overlapping_bodies():
-		if body.is_in_group("enemies") and body.has_method("take_damage"):
-			body.take_damage(20)
-			print("Enemy hit!")
-		if body.has_method("apply_knockback"):
-			body.apply_knockback(global_position)
+	attack_ip = false   # ← only resets state now, no damage here
+	_deal_melee_damage()
 
 # ─────────────────────────────────────────────
 # COOLDOWN TIMERS

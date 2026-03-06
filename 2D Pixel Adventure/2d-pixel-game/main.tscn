@@ -501,7 +501,7 @@ shape = SubResource("CircleShape2D_w48qg")
 script = ExtResource("10_dg77c")
 
 [node name="HUD" parent="." unique_id=155167230 instance=ExtResource("11_efxa6")]
-position = Vector2(-65, -50)
+visible = false
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

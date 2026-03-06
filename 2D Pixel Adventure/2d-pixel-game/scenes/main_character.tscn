@@ -415,7 +415,7 @@ animations = [{
 radius = 13.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ig48j"]
-size = Vector2(7, 7)
+size = Vector2(10, 9)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d3a2h"]
 radius = 298.0151
@@ -427,9 +427,7 @@ script = ExtResource("1_ig48j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=442329789]
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_t3ps3")
-animation = &"walking"
-frame = 7
-frame_progress = 0.8757324
+animation = &"attack"
 offset = Vector2(0, -5)
 
 [node name="player_hitbox" type="Area2D" parent="." unique_id=1515897014]
@@ -444,7 +442,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="deal_attack_timer" type="Timer" parent="." unique_id=266025377]
-wait_time = 0.4
+wait_time = 0.267
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=783191418]
@@ -477,7 +475,7 @@ one_shot = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1274304559]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(0.5, -1.5)
+position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_ig48j")
 
 [node name="lock_on_area" type="Area2D" parent="." unique_id=1889902617]
