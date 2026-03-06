@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://ce716scw8yhvb"]
+
+[ext_resource type="Texture2D" uid="uid://c6low52rl4wid" path="res://png/indicator/Health Indicator/UI_Flat_Bar11a.png" id="1_64ctp"]
+[ext_resource type="Texture2D" uid="uid://bt3vbxx3anfqh" path="res://png/indicator/Health Indicator/UI_Flat_BarFill01c.png" id="2_8sq4i"]
+[ext_resource type="Texture2D" uid="uid://bsgr3d0720mv8" path="res://png/indicator/Health Indicator/UI_Flat_Button01a_1.png" id="3_a2258"]
+[ext_resource type="Texture2D" uid="uid://dlugrm8jo60e7" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Idle.png" id="4_640wx"]
+[ext_resource type="Texture2D" uid="uid://cglr25oy5n665" path="res://png/indicator/Health Indicator/UI_Flat_BarFill01e.png" id="5_a2258"]
+
+[node name="HUD" type="CanvasLayer" unique_id=1229366100]
+
+[node name="HealthBarUI" type="Node2D" parent="." unique_id=167736980]
+
+[node name="BarBackround" type="Sprite2D" parent="HealthBarUI" unique_id=18282185]
+z_index = 2
+position = Vector2(58.999996, 22)
+scale = Vector2(2.5333333, 1)
+texture = ExtResource("1_64ctp")
+
+[node name="BarFill" type="Sprite2D" parent="HealthBarUI" unique_id=514028313]
+z_index = 1
+position = Vector2(27, 21)
+scale = Vector2(1.96875, 1)
+texture = ExtResource("2_8sq4i")
+centered = false
+
+[node name="Status" type="Sprite2D" parent="." unique_id=1943310291]
+position = Vector2(53, 28)
+scale = Vector2(3.2499998, -1.3750001)
+texture = ExtResource("3_a2258")
+
+[node name="SoldierIdle" type="Sprite2D" parent="." unique_id=55720545]
+position = Vector2(13, 21.000002)
+scale = Vector2(0.8529409, 0.8571423)
+texture = ExtResource("4_640wx")
+region_enabled = true
+region_rect = Rect2(40.56478, 37.135635, 17.765785, 14.136307)
+
+[node name="EnergyBarUI" type="Node2D" parent="." unique_id=1131929544]
+
+[node name="BarBackround" type="Sprite2D" parent="EnergyBarUI" unique_id=126305119]
+z_index = 2
+position = Vector2(51.5, 32)
+scale = Vector2(2.0333333, 1)
+texture = ExtResource("1_64ctp")
+
+[node name="BarFill" type="Sprite2D" parent="EnergyBarUI" unique_id=327913312]
+z_index = 1
+position = Vector2(26, 30)
+scale = Vector2(1.5624999, 1)
+texture = ExtResource("5_a2258")
+centered = false
