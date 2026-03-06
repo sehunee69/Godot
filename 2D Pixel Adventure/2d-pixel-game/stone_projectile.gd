@@ -9,7 +9,7 @@ var hit_something = false
 var is_destroyed = false
 
 func _ready():
-	$AnimatedSprite2D.play("fly")   # your projectile flying anim
+	$AnimatedSprite2D.play("stone_projectile_shoot")   # your projectile flying anim
 
 func _physics_process(delta):
 	if is_destroyed:

@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://cjl3u38ekwgfd" path="res://sounds/sound-fx/swinging-staff-whoosh-strong-08-44658.mp3" id="4_rb1yf"]
 [ext_resource type="Texture2D" uid="uid://e26elp8qis2g" path="res://png/Mecha-stone Golem 0.1/weapon PNG/arm_projectile_glowing.png" id="5_rb1yf"]
 [ext_resource type="AudioStream" uid="uid://uxw7on770aea" path="res://sounds/sound-fx/goblin-scream-87564.mp3" id="5_xmo02"]
+[ext_resource type="AudioStream" uid="uid://bx8oe5h6eubwg" path="res://sounds/sound-fx/voicebosch-the-moses-laser-cannon-182841.mp3" id="8_rb1yf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_md0e3"]
 atlas = ExtResource("2_4kuyw")
@@ -940,7 +941,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_78kod"]
-radius = 94.0053
+radius = 139.0036
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
 radius = 58.0
@@ -951,6 +952,123 @@ size = Vector2(26, 22)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_leqeq"]
 size = Vector2(33, 23)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_leqeq"]
+atlas = ExtResource("4_leqeq")
+region = Rect2(0, 100, 300, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rb1yf"]
+atlas = ExtResource("4_leqeq")
+region = Rect2(0, 200, 300, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qupkp"]
+atlas = ExtResource("4_leqeq")
+region = Rect2(0, 300, 300, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1qly"]
+atlas = ExtResource("4_leqeq")
+region = Rect2(0, 400, 300, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8lbt"]
+atlas = ExtResource("4_leqeq")
+region = Rect2(0, 500, 300, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ymkx"]
+atlas = ExtResource("4_leqeq")
+region = Rect2(0, 600, 300, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15fbv"]
+atlas = ExtResource("4_leqeq")
+region = Rect2(0, 700, 300, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6v34"]
+atlas = ExtResource("4_leqeq")
+region = Rect2(0, 800, 300, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyrgq"]
+atlas = ExtResource("4_leqeq")
+region = Rect2(0, 900, 300, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahwhd"]
+atlas = ExtResource("4_leqeq")
+region = Rect2(0, 1000, 300, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3fpr"]
+atlas = ExtResource("4_leqeq")
+region = Rect2(0, 1100, 300, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wx5ek"]
+atlas = ExtResource("4_leqeq")
+region = Rect2(0, 1200, 300, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mcr20"]
+atlas = ExtResource("4_leqeq")
+region = Rect2(0, 1300, 300, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckl34"]
+atlas = ExtResource("4_leqeq")
+region = Rect2(0, 1400, 300, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wv2jm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uv0ti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efk5g")
+}],
+"loop": false,
+"name": &"stone_laser_beam_off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_leqeq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rb1yf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qupkp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1qly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8lbt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ymkx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15fbv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6v34")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uyrgq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahwhd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h3fpr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wx5ek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mcr20")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ckl34")
+}],
+"loop": false,
+"name": &"stone_laser_beam_on",
+"speed": 5.0
+}]
+
 [node name="stone_enemy" type="CharacterBody2D" unique_id=718906583 groups=["enemies"]]
 collision_layer = 2
 motion_mode = 1
@@ -958,7 +1076,7 @@ script = ExtResource("1_fy5d8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=307478430]
 sprite_frames = SubResource("SpriteFrames_2sbpf")
-animation = &"stone_projectile_attack"
+animation = &"stone_idle"
 
 [node name="detection_Area" type="Area2D" parent="." unique_id=1882982935]
 collision_layer = 2
@@ -1028,6 +1146,17 @@ one_shot = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=465021110]
 position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_leqeq")
+
+[node name="LaserBeam" type="Node2D" parent="." unique_id=1879790514]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="LaserBeam" unique_id=990780726]
+position = Vector2(93, 4)
+sprite_frames = SubResource("SpriteFrames_wv2jm")
+animation = &"stone_laser_beam_on"
+offset = Vector2(1, 21)
+
+[node name="fx_laser" type="AudioStreamPlayer2D" parent="." unique_id=2056046011]
+stream = ExtResource("8_rb1yf")
 
 [connection signal="body_entered" from="detection_Area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_Area" to="." method="_on_detection_area_body_exited"]

@@ -3,6 +3,8 @@ extends Node2D
 # --- Audio ---
 @onready var fx_axe_hit: AudioStreamPlayer2D = $fx_axeHit
 @onready var fx_death: AudioStreamPlayer2D = $fx_death
+@onready var laser_sprite: AnimatedSprite2D = $LaserBeam/AnimatedSprite2D
+@onready var fx_laser: AudioStreamPlayer2D = $fx_laser
 
 # --- Stats ---
 var speed = 40
@@ -68,6 +70,19 @@ func _ready():
 			sf.set_animation_loop(anim, false)
 	
 	play_animation("stone_idle")
+	laser_sprite.animation_finished.connect(_on_laser_animation_finished)
+	laser_sprite.visible = false   # hidden by default
+
+	laser_sprite.animation_finished.connect(_on_laser_animation_finished)
+	laser_sprite.visible = false
+
+	var laser_sf = laser_sprite.sprite_frames
+	if laser_sf.has_animation("stone_laser_beam_on"):
+		laser_sf.set_animation_loop("stone_laser_beam_on", false)
+		laser_sf.set_animation_speed("stone_laser_beam_on", 5.0)
+	if laser_sf.has_animation("stone_laser_beam_off"):
+		laser_sf.set_animation_loop("stone_laser_beam_off", false)
+		laser_sf.set_animation_speed("stone_laser_beam_off", 5.0)
 # ─────────────────────────────────────────────
 # MAIN LOOP
 # ─────────────────────────────────────────────
@@ -75,7 +90,6 @@ func _physics_process(delta):
 	if is_dead:
 		return
 
-	# Knockback
 	if knockback_force.length() > 0.1:
 		position += knockback_force * delta
 		knockback_force = knockback_force.move_toward(Vector2.ZERO, knockback_decay * delta)
@@ -84,14 +98,24 @@ func _physics_process(delta):
 	if is_stunned or is_hibernating or is_attacking:
 		return
 
-	# Chase and attack
 	if player_chase and player != null:
-		if position.distance_to(player.position) > 20:
-			play_animation("stone_idle")   # walking anim if you have one
+		var dist = position.distance_to(player.position)
+		
+		# Phase 2 and 3 trigger from anywhere in detection range
+		if can_attack and current_phase == BossPhase.PHASE_2:
+			_start_phase_attack()
+			return
+		if can_attack and current_phase == BossPhase.PHASE_3:
+			_start_phase_attack()
+			return
+
+		# Phase 1 (basic attack) still needs to be close
+		if dist > 20:
+			play_animation("stone_idle")
 			position += (player.position - position).normalized() * speed * delta
 			$AnimatedSprite2D.flip_h = player.position.x < position.x
 		elif player_inattack_zone and can_attack:
-			_start_phase_attack()
+			_start_phase_attack()   # Phase 1 only
 	else:
 		play_animation("stone_idle")
 
@@ -185,8 +209,11 @@ func _do_laser_attack():
 	can_attack = false
 	if player != null:
 		laser_target_position = player.global_position
+		var direction = (player.global_position - global_position).normalized()
+		$LaserBeam.rotation = direction.angle()
+		$AnimatedSprite2D.flip_h = player.global_position.x < global_position.x
+	fx_laser.play(9.5)
 	play_animation("stone_laser_eye_on")
-	# ← NO timer here, let animation_finished drive the chain
 
 func _on_laser_charge_timer_timeout():
 	if is_dead:
@@ -207,12 +234,15 @@ func _check_laser_hit():
 	else:
 		print("Player dodged the laser!")
 
-func _on_laser_beam_timer_timeout():
-	if is_dead:
-		return
-	play_animation("stone_laser_eye_off")
-	# beam_off plays then eye_off
-	# handled in _on_animation_finished
+func _on_laser_animation_finished():
+	var anim = laser_sprite.animation
+
+	if anim == "stone_laser_beam_on":
+		laser_sprite.play("stone_laser_beam_off")
+
+	elif anim == "stone_laser_beam_off":
+		laser_sprite.visible = false   # hide beam
+		play_animation("stone_laser_eye_off")   # boss body resumes
 
 # ─────────────────────────────────────────────
 # HIBERNATE — PHASE 4
@@ -289,12 +319,14 @@ func _on_animation_finished():
 		pass
 
 	elif anim == "stone_laser_eye_on":
-			# Freeze boss on last frame of eye_on while beam plays
+		# Freeze boss body on last frame
 		$AnimatedSprite2D.stop()
 		if laser_eye_on_frames > 0:
 			$AnimatedSprite2D.frame = laser_eye_on_frames - 1
+		# Start laser beam on separate sprite
+		laser_sprite.visible = true
+		laser_sprite.play("stone_laser_beam_on")
 		_check_laser_hit()
-		$laser_beam_timer.start()    # timer drives beam duration, then eye_off
 
 	elif anim == "stone_laser_beam_on":
 		play_animation("stone_laser_beam_off")
@@ -395,7 +427,6 @@ func die():
 	$attack_hit_timer.stop()
 	$projectile_timer.stop()
 	$laser_charge_timer.stop()
-	$laser_beam_timer.stop()
 	$hibernate_timer.stop()
 	play_animation("stone_death")
 	$death_timer.start()
