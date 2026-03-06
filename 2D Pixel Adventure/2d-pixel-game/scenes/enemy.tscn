@@ -497,7 +497,7 @@ animations = [{
 radius = 79.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
-radius = 16.0
+radius = 17.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_605iw"]
 size = Vector2(9, 12.75)
@@ -515,6 +515,7 @@ animation = &"damaged"
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_Area" unique_id=1592874507]
+visible = false
 shape = SubResource("CircleShape2D_78kod")
 
 [node name="enemy_hitbox" type="Area2D" parent="." unique_id=846486460]
@@ -550,6 +551,7 @@ stream = ExtResource("4_5uy6h")
 volume_db = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=890044713]
+visible = false
 position = Vector2(0.5, -0.625)
 shape = SubResource("RectangleShape2D_605iw")
 

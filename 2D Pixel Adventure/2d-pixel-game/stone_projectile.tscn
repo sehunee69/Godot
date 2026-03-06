@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://bg2wrcv18wsxp"]
+
+[ext_resource type="Script" uid="uid://7fen0v6f6im0" path="res://stone_projectile.gd" id="1_p388m"]
+[ext_resource type="Texture2D" uid="uid://e26elp8qis2g" path="res://png/Mecha-stone Golem 0.1/weapon PNG/arm_projectile_glowing.png" id="1_rgsxu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p388m"]
+atlas = ExtResource("1_rgsxu")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yi5s3"]
+atlas = ExtResource("1_rgsxu")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jl20p"]
+atlas = ExtResource("1_rgsxu")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qwtc"]
+atlas = ExtResource("1_rgsxu")
+region = Rect2(0, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wq8no"]
+atlas = ExtResource("1_rgsxu")
+region = Rect2(100, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ri1ww"]
+atlas = ExtResource("1_rgsxu")
+region = Rect2(200, 100, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g3cy4"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p388m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yi5s3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jl20p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qwtc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wq8no")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ri1ww")
+}],
+"loop": true,
+"name": &"stone_projectile_shoot",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7f8t"]
+size = Vector2(32, 4)
+
+[node name="Node2D" type="Node2D" unique_id=246420487 groups=["enemy"]]
+script = ExtResource("1_p388m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1709701203]
+sprite_frames = SubResource("SpriteFrames_g3cy4")
+animation = &"stone_projectile_shoot"
+frame_progress = 0.65093994
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1744122906]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2018203382]
+position = Vector2(27, -13)
+shape = SubResource("RectangleShape2D_h7f8t")
