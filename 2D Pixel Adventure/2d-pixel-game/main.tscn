@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://c7ssopquu0k4f" path="res://sounds/bg-music/medieval-ambient-236809.mp3" id="5_lquwl"]
 [ext_resource type="Script" uid="uid://q1h4eold4xf3" path="res://oderArea.gd" id="9_efxa6"]
 [ext_resource type="Script" uid="uid://5wh4x8s033im" path="res://oderAreaTest.gd" id="10_dg77c"]
+[ext_resource type="PackedScene" uid="uid://ce716scw8yhvb" path="res://hud.tscn" id="11_efxa6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("1_0xm2m")
@@ -478,7 +479,7 @@ position = Vector2(108, 122)
 [node name="enemy2" parent="Node2D" unique_id=674521427 instance=ExtResource("4_1bvp3")]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(567, 123)
+position = Vector2(241, 174)
 
 [node name="Medieval-ambient-236809" type="AudioStreamPlayer" parent="Node2D" unique_id=2023729253]
 stream = ExtResource("5_lquwl")
@@ -498,6 +499,9 @@ script = ExtResource("9_efxa6")
 position = Vector2(-346, -42.5)
 shape = SubResource("CircleShape2D_w48qg")
 script = ExtResource("10_dg77c")
+
+[node name="HUD" parent="." unique_id=155167230 instance=ExtResource("11_efxa6")]
+position = Vector2(-65, -50)
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

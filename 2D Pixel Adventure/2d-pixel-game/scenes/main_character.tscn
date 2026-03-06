@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://savlbnt3klb0" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/image.png" id="5_d3a2h"]
 [ext_resource type="AudioStream" uid="uid://ds6eaup44ujix" path="res://sounds/sound-fx/sword-blade-slicing-flesh-352708.mp3" id="7_0d0nc"]
 [ext_resource type="AudioStream" uid="uid://dcxcphfcbvpkt" path="res://sounds/sound-fx/sword-slashing-game-sound-effect-2-379229.mp3" id="8_d3a2h"]
+[ext_resource type="AudioStream" uid="uid://sr62qj8vrfse" path="res://sounds/sound-fx/bow/draw_bow.mp3" id="9_kvjf6"]
+[ext_resource type="AudioStream" uid="uid://dy3hir0o80742" path="res://sounds/sound-fx/bow/bow_fire.mp3" id="10_hj3w6"]
+[ext_resource type="Texture2D" uid="uid://c0w0mpr6t7dwv" path="res://png/indicator/Charging bow indicator/UI_Flat_Bar12a.png" id="11_hodpe"]
+[ext_resource type="Texture2D" uid="uid://by4ahdhnl3a0s" path="res://png/indicator/Charging bow indicator/UI_Flat_BarFill01f.png" id="12_hodpe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ltrl"]
 atlas = ExtResource("2_k0aba")
@@ -416,16 +420,16 @@ size = Vector2(7, 7)
 [sub_resource type="CircleShape2D" id="CircleShape2D_d3a2h"]
 radius = 298.0151
 
-[node name="player" type="CharacterBody2D" unique_id=1557235466]
+[node name="player" type="CharacterBody2D" unique_id=1557235466 groups=["player"]]
 collision_mask = 3
 script = ExtResource("1_ig48j")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=442329789]
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_t3ps3")
-animation = &"bow_draw"
-frame = 6
-frame_progress = 1.0
+animation = &"walking"
+frame = 7
+frame_progress = 0.8757324
 offset = Vector2(0, -5)
 
 [node name="player_hitbox" type="Area2D" parent="." unique_id=1515897014]
@@ -480,8 +484,29 @@ shape = SubResource("RectangleShape2D_ig48j")
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="lock_on_area" unique_id=1632614809]
+visible = false
 position = Vector2(3, 1)
 shape = SubResource("CircleShape2D_d3a2h")
+
+[node name="sfx_bowDraw" type="AudioStreamPlayer2D" parent="." unique_id=1093888115]
+stream = ExtResource("9_kvjf6")
+
+[node name="sfx_bowShoot" type="AudioStreamPlayer2D" parent="." unique_id=940939444]
+stream = ExtResource("10_hj3w6")
+
+[node name="BowChargeUI" type="Node2D" parent="." unique_id=1635269075]
+
+[node name="BarBackground" type="Sprite2D" parent="BowChargeUI" unique_id=896480909]
+z_index = 1
+position = Vector2(0, -18)
+scale = Vector2(0.65086204, 0.65)
+texture = ExtResource("11_hodpe")
+
+[node name="BarFill" type="Sprite2D" parent="BowChargeUI" unique_id=1858806292]
+position = Vector2(-8, -19)
+scale = Vector2(0.5, 0.66666657)
+texture = ExtResource("12_hodpe")
+centered = false
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
