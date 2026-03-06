@@ -16,8 +16,8 @@ var is_attacking = false       # true while enemy attack window is active
 var is_stunned = false         # true while enemy is in damaged state
 
 var knockback_force = Vector2.ZERO
-var knockback_strength = 250.0
-var knockback_decay = 600.0
+const knockback_strength = 150.0
+const knockback_decay = 850.0
 var current_animation = ""
 
 func _ready():

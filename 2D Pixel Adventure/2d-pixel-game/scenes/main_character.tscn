@@ -418,16 +418,16 @@ radius = 13.0
 size = Vector2(10, 9)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d3a2h"]
-radius = 298.0151
+radius = 170.0
 
 [node name="player" type="CharacterBody2D" unique_id=1557235466 groups=["player"]]
-collision_mask = 3
+collision_mask = 0
 script = ExtResource("1_ig48j")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=442329789]
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_t3ps3")
-animation = &"attack"
+animation = &"walking"
 offset = Vector2(0, -5)
 
 [node name="player_hitbox" type="Area2D" parent="." unique_id=1515897014]
@@ -482,7 +482,6 @@ shape = SubResource("RectangleShape2D_ig48j")
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="lock_on_area" unique_id=1632614809]
-visible = false
 position = Vector2(3, 1)
 shape = SubResource("CircleShape2D_d3a2h")
 
@@ -506,6 +505,10 @@ scale = Vector2(0.5, 0.66666657)
 texture = ExtResource("12_hodpe")
 centered = false
 
+[node name="attack_lunge_timer" type="Timer" parent="." unique_id=212627900]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
@@ -515,3 +518,4 @@ centered = false
 [connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="take_damage_cooldown" to="." method="_on_take_damage_cooldown_timeout"]
 [connection signal="timeout" from="bow_attack_timer" to="." method="_on_bow_attack_timer_timeout"]
+[connection signal="timeout" from="attack_lunge_timer" to="." method="_on_attack_lunge_timer_timeout"]

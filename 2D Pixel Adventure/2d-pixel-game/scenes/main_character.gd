@@ -24,6 +24,11 @@ var knockback_force = Vector2.ZERO
 var knockback_strength = 150.0
 var knockback_decay = 600.0
 
+# --- Lunge ---
+var lunge_force = Vector2.ZERO
+var lunge_strength = 100.0
+var lunge_decay = 600.0
+
 # --- Stats ---
 var health = 100
 var is_taking_damage = false
@@ -43,7 +48,7 @@ var bow_state: BowState = BowState.IDLE
 var bow_draw_done = false
 var bow_total_frames: int = 0
 
-const SPEED = 100
+const SPEED = 70
 const BOW_SPEED = 5 
 
 # ─────────────────────────────────────────────
@@ -68,11 +73,18 @@ func _ready():
 # MAIN LOOP
 # ─────────────────────────────────────────────
 func _physics_process(delta):
-	# Add this at the top of _physics_process
+	# Knockback
 	if knockback_force.length() > 0.1:
 		velocity = knockback_force
 		move_and_slide()
 		knockback_force = knockback_force.move_toward(Vector2.ZERO, knockback_decay * delta)
+		return
+
+	# Lunge forward during attack
+	if lunge_force.length() > 0.1:
+		velocity = lunge_force
+		move_and_slide()
+		lunge_force = lunge_force.move_toward(Vector2.ZERO, lunge_decay * delta)
 		return
 
 	if not is_dead and not is_taking_damage:
@@ -237,6 +249,7 @@ func _deal_melee_damage():
 func _play_attack_anim(anim_name: String):
 	$AnimatedSprite2D.flip_h = (current_dir == "left")
 	$AnimatedSprite2D.play(anim_name)
+	$attack_lunge_timer.start()  # ← triggers lunge at frame 3
 	$deal_attack_timer.start()
 
 
@@ -469,3 +482,11 @@ func player():
 
 func _on_area_2d_body_entered(_body):
 	pass
+
+func _on_attack_lunge_timer_timeout():
+	# Lunge in the direction the player is facing
+	match current_dir:
+		"right": lunge_force = Vector2(lunge_strength, 0)
+		"left":  lunge_force = Vector2(-lunge_strength, 0)
+		"up":    lunge_force = Vector2(0, -lunge_strength)
+		"down":  lunge_force = Vector2(0, lunge_strength)
