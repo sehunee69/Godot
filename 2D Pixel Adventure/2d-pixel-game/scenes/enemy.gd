@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var fx_axe_hit: AudioStreamPlayer2D = $fx_axeHit
 @onready var fx_death: AudioStreamPlayer2D = $fx_death
+@onready var fx_goblin_scream: AudioStreamPlayer2D = $fx_goblin_scream
 
 var speed = 50
 var player_chase = false
@@ -15,8 +16,8 @@ var is_attacking = false       # true while enemy attack window is active
 var is_stunned = false         # true while enemy is in damaged state
 
 var knockback_force = Vector2.ZERO
-var knockback_strength = 200.0
-var knockback_decay = 800.0
+var knockback_strength = 250.0
+var knockback_decay = 600.0
 var current_animation = ""
 
 func _ready():
@@ -89,6 +90,10 @@ func _on_attack_damage_timer_timeout():
 		player.call("take_damage", 10)
 		fx_axe_hit.play()
 		print("Enemy dealt damage to player!")
+	
+	# Apply knockback to player away from enemy
+	if player.has_method("apply_knockback"):
+		player.apply_knockback(global_position)    # ← ADD this
 
 	is_attacking = false
 
@@ -102,6 +107,7 @@ func take_damage(amount: int):
 	is_attacking = false
 	is_stunned = true
 	$attack_damage_timer.stop()
+	$scream_timer.start() 
 
 	# Aggro toward player no matter the distance
 	if not player_chase:
@@ -152,3 +158,9 @@ func apply_knockback(source_position: Vector2):
 
 func enemy():
 	pass
+
+
+func _on_scream_timer_timeout() -> void:
+	if is_dead:
+		return
+	fx_goblin_scream.play(0.61)
