@@ -1732,6 +1732,7 @@ size = Vector2(252.75, 18.25)
 
 [node name="stone_enemy" type="CharacterBody2D" unique_id=718906583 groups=["enemies"]]
 collision_layer = 8
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_fy5d8")
 
