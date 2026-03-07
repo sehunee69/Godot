@@ -421,7 +421,7 @@ size = Vector2(10, 9)
 radius = 170.0
 
 [node name="player" type="CharacterBody2D" unique_id=1557235466 groups=["player"]]
-collision_mask = 0
+collision_layer = 2
 script = ExtResource("1_ig48j")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=442329789]
@@ -431,7 +431,8 @@ animation = &"walking"
 offset = Vector2(0, -5)
 
 [node name="player_hitbox" type="Area2D" parent="." unique_id=1515897014]
-collision_mask = 2
+collision_layer = 2
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox" unique_id=182722739]
 position = Vector2(0, -5)
@@ -479,7 +480,8 @@ position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_ig48j")
 
 [node name="lock_on_area" type="Area2D" parent="." unique_id=1889902617]
-collision_mask = 2
+collision_layer = 2
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="lock_on_area" unique_id=1632614809]
 position = Vector2(3, 1)

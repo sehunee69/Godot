@@ -503,23 +503,25 @@ radius = 17.0
 size = Vector2(9, 12.75)
 
 [node name="enemy" type="CharacterBody2D" unique_id=61497008 groups=["enemies"]]
-collision_layer = 2
+collision_layer = 8
 motion_mode = 1
 script = ExtResource("1_md0e3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=614770253]
 sprite_frames = SubResource("SpriteFrames_2sbpf")
-animation = &"damaged"
+animation = &"attack"
 
 [node name="detection_Area" type="Area2D" parent="." unique_id=408206092]
-collision_layer = 2
+collision_layer = 8
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_Area" unique_id=1592874507]
 visible = false
 shape = SubResource("CircleShape2D_78kod")
 
 [node name="enemy_hitbox" type="Area2D" parent="." unique_id=846486460]
-collision_layer = 2
+collision_layer = 8
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_hitbox" unique_id=1350893983]
 position = Vector2(1, 0)

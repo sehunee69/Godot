@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 
 @onready var fx_axe_hit: AudioStreamPlayer2D = $fx_axeHit
 @onready var fx_death: AudioStreamPlayer2D = $fx_death
@@ -12,8 +12,8 @@ var player_inattack_zone = false
 var can_take_damage = true
 var can_attack = true
 var is_dead = false
-var is_attacking = false       # true while enemy attack window is active
-var is_stunned = false         # true while enemy is in damaged state
+var is_attacking = false
+var is_stunned = false
 
 var knockback_force = Vector2.ZERO
 const knockback_strength = 150.0
@@ -29,8 +29,9 @@ func _physics_process(delta):
 
 	# Knockback
 	if knockback_force.length() > 0.1:
-		position += knockback_force * delta
 		knockback_force = knockback_force.move_toward(Vector2.ZERO, knockback_decay * delta)
+		velocity = knockback_force
+		move_and_slide()
 		return
 
 	# Don't act while stunned from taking damage
@@ -41,12 +42,19 @@ func _physics_process(delta):
 	if player_chase and player != null:
 		if position.distance_to(player.position) > 15:
 			play_animation("walking")
-			position += (player.position - position).normalized() * speed * delta
+			var direction = (player.position - position).normalized()
+			velocity = direction * speed
 			$AnimatedSprite2D.flip_h = player.position.x < position.x
 		elif player_inattack_zone and can_attack and not is_attacking:
+			velocity = Vector2.ZERO
 			_start_attack()
+		else:
+			velocity = Vector2.ZERO
 	else:
 		play_animation("idle")
+		velocity = Vector2.ZERO
+
+	move_and_slide()
 
 # --- Start attack ---
 func _start_attack():
@@ -58,7 +66,7 @@ func _start_attack():
 
 # --- Area Enter/Exit ---
 func _on_detection_area_body_entered(body: Node2D) -> void:
-	if body.has_method("player"):
+	if body.is_in_group("player"):
 		player = body
 		player_chase = true
 
@@ -68,11 +76,11 @@ func _on_detection_area_body_exited(body: Node2D) -> void:
 		player = null
 
 func _on_enemy_hitbox_body_entered(body: Node2D) -> void:
-	if body.has_method("player"):
+	if body.is_in_group("player"):
 		player_inattack_zone = true
 
 func _on_enemy_hitbox_body_exited(body: Node2D) -> void:
-	if body.has_method("player"):
+	if body.is_in_group("player"):
 		player_inattack_zone = false
 
 # --- Deal damage to player ---
@@ -80,7 +88,6 @@ func _on_attack_damage_timer_timeout():
 	if is_dead or not is_attacking or not player_inattack_zone or player == null:
 		return
 
-	# Player wins if they are mid-attack — enemy attack is cancelled
 	if player.has_method("is_player_attacking") and player.is_player_attacking():
 		print("Enemy attack cancelled — player is attacking!")
 		is_attacking = false
@@ -90,10 +97,9 @@ func _on_attack_damage_timer_timeout():
 		player.call("take_damage", 10)
 		fx_axe_hit.play()
 		print("Enemy dealt damage to player!")
-	
-	# Apply knockback to player away from enemy
+
 	if player.has_method("apply_knockback"):
-		player.apply_knockback(global_position)    # ← ADD this
+		player.apply_knockback(global_position)
 
 	is_attacking = false
 
@@ -107,9 +113,8 @@ func take_damage(amount: int):
 	is_attacking = false
 	is_stunned = true
 	$attack_damage_timer.stop()
-	$scream_timer.start() 
+	$scream_timer.start()
 
-	# Aggro toward player no matter the distance
 	if not player_chase:
 		var players = get_tree().get_nodes_in_group("player")
 		if not players.is_empty():
@@ -135,7 +140,7 @@ func die():
 # --- Timers ---
 func _on_take_damage_cooldown_timeout() -> void:
 	can_take_damage = true
-	is_stunned = false            # unstun after damage cooldown ends
+	is_stunned = false
 
 func _on_attack_cooldown_timeout() -> void:
 	can_attack = true
@@ -158,7 +163,6 @@ func apply_knockback(source_position: Vector2):
 
 func enemy():
 	pass
-
 
 func _on_scream_timer_timeout() -> void:
 	if is_dead:

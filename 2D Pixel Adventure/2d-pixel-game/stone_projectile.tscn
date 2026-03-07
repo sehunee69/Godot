@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://7fen0v6f6im0" path="res://stone_projectile.gd" id="1_p388m"]
 [ext_resource type="Texture2D" uid="uid://e26elp8qis2g" path="res://png/Mecha-stone Golem 0.1/weapon PNG/arm_projectile_glowing.png" id="1_rgsxu"]
+[ext_resource type="AudioStream" uid="uid://4lu40y52whqb" path="res://sounds/sound-fx/stone_boss/rock_peirce.mp3" id="3_yi5s3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p388m"]
 atlas = ExtResource("1_rgsxu")
@@ -61,16 +62,28 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h7f8t"]
 size = Vector2(32, 4)
 
-[node name="Node2D" type="Node2D" unique_id=246420487 groups=["enemy"]]
+[node name="Node2D" type="CharacterBody2D" unique_id=1139096620 groups=["enemy"]]
+collision_layer = 4
 script = ExtResource("1_p388m")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1709701203]
 sprite_frames = SubResource("SpriteFrames_g3cy4")
 animation = &"stone_projectile_shoot"
-frame_progress = 0.65093994
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1744122906]
+[node name="hitbox" type="Area2D" parent="." unique_id=1744122906]
+collision_layer = 4
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2018203382]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" unique_id=2018203382]
 position = Vector2(27, -13)
 shape = SubResource("RectangleShape2D_h7f8t")
+
+[node name="pierce_stop_timer" type="Timer" parent="." unique_id=834453856]
+wait_time = 1.54
+one_shot = true
+
+[node name="fx_rock_pierce" type="AudioStreamPlayer2D" parent="." unique_id=492345631]
+stream = ExtResource("3_yi5s3")
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="pierce_stop_timer" to="." method="_on_pierce_stop_timer_timeout"]
