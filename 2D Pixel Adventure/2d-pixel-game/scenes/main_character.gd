@@ -150,31 +150,32 @@ func player_movement():
 		move_and_slide()
 		return
 
-	# Slow movement while drawing or holding bow
 	var current_speed = SPEED
 	if bow_state != BowState.IDLE:
 		current_speed = BOW_SPEED
 
+	var input_dir = Vector2.ZERO
+
 	if Input.is_action_pressed("ui_right"):
+		input_dir.x += 1
 		current_dir = "right"
-		if bow_state == BowState.IDLE:
-			play_anim("walking")
-		velocity = Vector2(current_speed, 0)
 	elif Input.is_action_pressed("ui_left"):
+		input_dir.x -= 1
 		current_dir = "left"
+	
+	if Input.is_action_pressed("ui_down"):
+		input_dir.y += 1
+		if input_dir.x == 0:        # ← only set vertical dir if no horizontal input
+			current_dir = "down"
+	if Input.is_action_pressed("ui_up"):
+		input_dir.y -= 1
+		if input_dir.x == 0:        # ← only set vertical dir if no horizontal input
+			current_dir = "up"
+
+	if input_dir != Vector2.ZERO:
+		velocity = input_dir.normalized() * current_speed  # ← normalized prevents faster diagonal movement
 		if bow_state == BowState.IDLE:
 			play_anim("walking")
-		velocity = Vector2(-current_speed, 0)
-	elif Input.is_action_pressed("ui_down"):
-		current_dir = "down"
-		if bow_state == BowState.IDLE:
-			play_anim("walking")
-		velocity = Vector2(0, current_speed)
-	elif Input.is_action_pressed("ui_up"):
-		current_dir = "up"
-		if bow_state == BowState.IDLE:
-			play_anim("walking")
-		velocity = Vector2(0, -current_speed)
 	else:
 		velocity = Vector2.ZERO
 		if bow_state == BowState.IDLE:
