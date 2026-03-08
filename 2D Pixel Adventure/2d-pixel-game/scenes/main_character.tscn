@@ -440,14 +440,14 @@ offset = Vector2(0, -5)
 
 [node name="player_hitbox" type="Area2D" parent="." unique_id=1515897014]
 collision_layer = 2
-collision_mask = 8
+collision_mask = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox" unique_id=182722739]
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_k0aba")
 
 [node name="attack_cooldown_timer" type="Timer" parent="." unique_id=186734035]
-wait_time = 0.5
+wait_time = 1.2
 one_shot = true
 
 [node name="deal_attack_timer" type="Timer" parent="." unique_id=266025377]
@@ -489,7 +489,7 @@ shape = SubResource("RectangleShape2D_ig48j")
 [node name="lock_on_area" type="Area2D" parent="." unique_id=1889902617]
 visible = false
 collision_layer = 2
-collision_mask = 8
+collision_mask = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="lock_on_area" unique_id=1632614809]
 position = Vector2(3, 1)

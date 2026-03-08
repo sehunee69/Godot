@@ -75,7 +75,7 @@ func _ready():
 	$AnimatedSprite2D.animation_finished.connect(_on_animation_finished)
 	play_anim("idle")
 	_hide_bow_charge_ui()
-	health_bar_fill = get_tree().current_scene.get_node_or_null("HUD/HealthBarUI/BarFill")
+	health_bar_fill = get_tree().current_scene.get_node_or_null("HUD/player_health_bar/HealthBarUI/BarFill")
 	_update_health_bar()
 	
 func _center_inventory():
@@ -120,7 +120,7 @@ func apply_knockback(source_position: Vector2):
 # HEALTH BAR UI
 # ─────────────────────────────────────────────
 const MAX_HEALTH = 100
-const HEALTH_BAR_WIDTH = 32.0  # ← same width as your BAR_FULL_WIDTH
+const HEALTH_BAR_WIDTH = 49  # ← same width as your BAR_FULL_WIDTH
 
 func _update_health_bar():
 	if health_bar_fill == null:
@@ -407,20 +407,26 @@ func take_damage(amount: int):
 	fx_hit.play()
 	is_taking_damage = true
 
+	# ← interrupt any ongoing attack
+	attack_ip = false
+	can_attack = false
+	$attack_cooldown_timer.stop()
+	$deal_attack_timer.stop()
+	$attack_lunge_timer.stop()
+	lunge_force = Vector2.ZERO
+
 	if bow_state != BowState.IDLE:
-		bow_state = BowState.IDLE
-		bow_draw_done = false
-		attack_ip = false
 		_cancel_bow()
 		$AnimatedSprite2D.speed_scale = 1.0
 		sfx_bow_draw.stop()
-		_hide_bow_charge_ui() 
+		_hide_bow_charge_ui()
 		$bow_attack_timer.stop()
-		can_attack = true   
 
+	$AnimatedSprite2D.stop()
 	play_anim("damaged")
 	print("Player took damage! Health:", health)
 	$damage_timer.start()
+	$attack_cooldown_timer.start()   # ← force cooldown after being hit
 
 	if health <= 0:
 		die()
