@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://c70i5vq20uusc" path="res://enemy/Flying Demon 2D Pixel Art/Sprites/with_outline/DEATH.png" id="3_d4cgy"]
 [ext_resource type="Texture2D" uid="uid://di1kkl2h3jqt4" path="res://enemy/Flying Demon 2D Pixel Art/Sprites/with_outline/FLYING.png" id="4_6ygrb"]
 [ext_resource type="Texture2D" uid="uid://cixvge31m7jej" path="res://enemy/Flying Demon 2D Pixel Art/Sprites/with_outline/IDLE.png" id="5_3w31x"]
+[ext_resource type="AudioStream" uid="uid://cwy56fwrpfo6h" path="res://sounds/sound-fx/flying_demon/floraphonic-fireball-whoosh-3-179127.mp3" id="7_3w31x"]
+[ext_resource type="AudioStream" uid="uid://fp68ev2epivp" path="res://sounds/sound-fx/flying_demon/bannythecoolio-impactful-damage-425132.mp3" id="8_yscdk"]
+[ext_resource type="AudioStream" uid="uid://cboch43qc1n5k" path="res://sounds/sound-fx/flying_demon/dragon-studio-punch-431475.mp3" id="9_i1wyx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yscdk"]
 atlas = ExtResource("1_pyqfg")
@@ -246,7 +249,9 @@ script = ExtResource("1_rekgh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=809139570]
 sprite_frames = SubResource("SpriteFrames_xeimr")
-animation = &"idle"
+animation = &"flying"
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1327920526]
 position = Vector2(-7, 7)
@@ -274,6 +279,15 @@ one_shot = true
 [node name="take_damage_cooldown" type="Timer" parent="." unique_id=1458317003]
 wait_time = 0.6
 one_shot = true
+
+[node name="fx_attack" type="AudioStreamPlayer2D" parent="." unique_id=325788514]
+stream = ExtResource("7_3w31x")
+
+[node name="fx_hit" type="AudioStreamPlayer2D" parent="." unique_id=649954987]
+stream = ExtResource("8_yscdk")
+
+[node name="fx_death" type="AudioStreamPlayer2D" parent="." unique_id=88784030]
+stream = ExtResource("9_i1wyx")
 
 [connection signal="body_entered" from="detection_Area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_Area" to="." method="_on_detection_area_body_exited"]

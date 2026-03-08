@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var sfx_bow_shoot: AudioStreamPlayer2D = $sfx_bowShoot  
 @onready var bow_charge_ui = $BowChargeUI
 @onready var bar_fill = $BowChargeUI/BarFill
+@onready var fx_hit: AudioStreamPlayer2D = $fx_hit
 
 # --- Status ---
 var health_bar_fill = null
@@ -403,6 +404,7 @@ func take_damage(amount: int):
 		return
 	health -= amount
 	_update_health_bar()
+	fx_hit.play()
 	is_taking_damage = true
 
 	if bow_state != BowState.IDLE:
