@@ -22,6 +22,9 @@ var current_animation = ""
 
 func _ready():
 	play_animation("idle")
+		# debug
+	var nodes = get_tree().get_nodes_in_group("inventory")
+	print("Nodes in inventory group: ", nodes)
 
 func _physics_process(delta):
 	if is_dead:
@@ -136,6 +139,37 @@ func die():
 	is_stunned = false
 	play_animation("death")
 	$death_timer.start()
+	give_item()
+
+# -- Give Item --- // Delete this function later
+func give_item():
+	var inventory = get_tree().get_first_node_in_group("inventory")
+	if inventory == null:
+		push_error("Enemy: No inventory node found in group 'inventory'")
+		return
+
+	var grid = inventory.get_node("TextureRect/ScrollContainer/MarginContainer/GridContainer")
+	if grid == null:
+		push_error("Enemy: GridContainer not found!")
+		return
+
+	for slot in grid.get_children():
+		var item_node = slot.get_node_or_null("Item/TextureRect")
+		if item_node and item_node.texture == null:
+			item_node.texture = _get_random_texture()
+			print("Texture set: ", item_node.texture)
+			print("TextureRect size: ", item_node.size)
+			print("TextureRect visible: ", item_node.visible)
+			return
+
+	print("FAILED: No empty slots found!")
+
+func _get_random_texture():
+	var textures = [
+		preload("res://Assets/weapons/Conquerers Fury.png"),
+		preload("res://Assets/weapons/Sakura Blade.png")
+	]
+	return textures[randi() % textures.size()]
 
 # --- Timers ---
 func _on_take_damage_cooldown_timeout() -> void:

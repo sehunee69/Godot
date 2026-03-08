@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhm4owdneul3k"
-path="res://.godot/imported/WeaponSet.png-9ec5b3e9d5b09c7bb224621205b8d211.ctex"
+uid="uid://cyxilu2lc3qjr"
+path="res://.godot/imported/Sakura Blade.png-7eec73c1cb0aec6e33546b8826b9565d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/weapons/WeaponSet.png"
-dest_files=["res://.godot/imported/WeaponSet.png-9ec5b3e9d5b09c7bb224621205b8d211.ctex"]
+source_file="res://Assets/weapons/Sakura Blade.png"
+dest_files=["res://.godot/imported/Sakura Blade.png-7eec73c1cb0aec6e33546b8826b9565d.ctex"]
 
 [params]
 

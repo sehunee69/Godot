@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://duwwcq6rjifh1"]
+
+[ext_resource type="Script" uid="uid://bvqirm6xil8xw" path="res://item_drop.gd" id="1_an6nj"]
+[ext_resource type="Texture2D" uid="uid://cyxilu2lc3qjr" path="res://Assets/weapons/Sakura Blade.png" id="2_g4j5n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6tdqx"]
+size = Vector2(22, 22)
+
+[sub_resource type="Animation" id="Animation_i5jsf"]
+resource_name = "Float"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1)]
+}
+
+[sub_resource type="Animation" id="Animation_mgcql"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_06nfh"]
+_data = {
+&"Float": SubResource("Animation_i5jsf"),
+&"RESET": SubResource("Animation_mgcql")
+}
+
+[node name="ItemDrop" type="CharacterBody2D" unique_id=1959287552]
+script = ExtResource("1_an6nj")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1610377553]
+texture = ExtResource("2_g4j5n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1116467776]
+shape = SubResource("RectangleShape2D_6tdqx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=604625442]
+libraries/ = SubResource("AnimationLibrary_06nfh")

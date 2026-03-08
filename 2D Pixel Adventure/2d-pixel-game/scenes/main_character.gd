@@ -12,9 +12,14 @@ extends CharacterBody2D
 var health_bar_fill = null
 
 # --- Inventory ---
+#var inventory_scene = preload("res://inventory.tscn")
+#var inventory_instance = null
+#var inventory_open = false
+
 var inventory_scene = preload("res://inventory.tscn")
 var inventory_instance = null
 var inventory_open = false
+var canvas_layer = null
 
 # --- Arrow ---
 var arrow_scene = preload("res://arrow.tscn")
@@ -51,6 +56,9 @@ var bow_total_frames: int = 0
 const SPEED = 70
 const BOW_SPEED = 5 
 
+# --- For Picking Up items ---
+const PICKUP_RANGE = 64.0
+
 # ─────────────────────────────────────────────
 # READY
 # ─────────────────────────────────────────────
@@ -68,7 +76,10 @@ func _ready():
 	_hide_bow_charge_ui()
 	health_bar_fill = get_tree().current_scene.get_node_or_null("HUD/HealthBarUI/BarFill")
 	_update_health_bar()
-
+	
+func _center_inventory():
+	var screen_size = get_viewport().get_visible_rect().size
+	inventory_instance.position = screen_size / 2 - inventory_instance.size / 2
 # ─────────────────────────────────────────────
 # MAIN LOOP
 # ─────────────────────────────────────────────
@@ -79,6 +90,9 @@ func _physics_process(delta):
 		move_and_slide()
 		knockback_force = knockback_force.move_toward(Vector2.ZERO, knockback_decay * delta)
 		return
+	
+	for item in getNearbyItems():
+		item.pick_up_item(self)
 
 	# Lunge forward during attack
 	if lunge_force.length() > 0.1:
@@ -121,26 +135,41 @@ func _unhandled_input(event):
 	if event.is_action_pressed("Inventory"):
 		toggle_inventory()
 
+#func toggle_inventory():
+	#if not inventory_open:
+		#var canvas_layer = CanvasLayer.new()
+		#canvas_layer.name = "InventoryLayer"
+		#get_tree().current_scene.add_child(canvas_layer)
+		#inventory_instance = inventory_scene.instantiate()
+		#canvas_layer.add_child(inventory_instance)
+		#await get_tree().process_frame
+		#var screen_size = get_viewport().get_visible_rect().size
+		#var inventory_size = inventory_instance.get_rect().size
+		#inventory_instance.position = (screen_size - inventory_size) / 2
+		#inventory_open = true
+	#else:
+		#if inventory_instance != null:
+			#var canvas_layer = get_tree().current_scene.get_node_or_null("InventoryLayer")
+			#if canvas_layer:
+				#canvas_layer.queue_free()
+			#inventory_instance = null
+		#inventory_open = false
+		
 func toggle_inventory():
-	if not inventory_open:
-		var canvas_layer = CanvasLayer.new()
+	if inventory_instance == null:
+		canvas_layer = CanvasLayer.new()
 		canvas_layer.name = "InventoryLayer"
-		get_tree().current_scene.add_child(canvas_layer)
+		get_tree().root.add_child(canvas_layer)
 		inventory_instance = inventory_scene.instantiate()
 		canvas_layer.add_child(inventory_instance)
+		inventory_instance.add_to_group("inventory")
 		await get_tree().process_frame
 		var screen_size = get_viewport().get_visible_rect().size
 		var inventory_size = inventory_instance.get_rect().size
 		inventory_instance.position = (screen_size - inventory_size) / 2
-		inventory_open = true
-	else:
-		if inventory_instance != null:
-			var canvas_layer = get_tree().current_scene.get_node_or_null("InventoryLayer")
-			if canvas_layer:
-				canvas_layer.queue_free()
-			inventory_instance = null
-		inventory_open = false
 
+	inventory_open = !inventory_open
+	inventory_instance.visible = inventory_open
 # ─────────────────────────────────────────────
 # MOVEMENT
 # ─────────────────────────────────────────────
@@ -491,3 +520,12 @@ func _on_attack_lunge_timer_timeout():
 		"left":  lunge_force = Vector2(-lunge_strength, 0)
 		"up":    lunge_force = Vector2(0, -lunge_strength)
 		"down":  lunge_force = Vector2(0, lunge_strength)
+		
+# --- This is for Picking Up Items Near the PLayer ---
+func getNearbyItems():
+	var nearby = []
+	for item in get_tree().get_nodes_in_group("items"):
+		if global_position.distance_to(item.global_position) <= PICKUP_RANGE:
+			nearby.append(item)
+	return nearby
+	

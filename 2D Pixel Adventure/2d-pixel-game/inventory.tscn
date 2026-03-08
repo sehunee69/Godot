@@ -1,35 +1,58 @@
 [gd_scene format=3 uid="uid://t5eqrlxo8f27"]
 
-[ext_resource type="Script" path="res://inventory.gd" id="1_0xmy5"]
+[ext_resource type="Script" uid="uid://b5uj362xvvskc" path="res://inventory.gd" id="1_0xmy5"]
 [ext_resource type="Texture2D" uid="uid://bpfvku8o13v4y" path="res://Assets/inventoryDesign.png" id="1_psafj"]
 [ext_resource type="Texture2D" uid="uid://dvm77spetvvcr" path="res://Assets/inventoryBg.png" id="2_mrqgh"]
 [ext_resource type="Texture2D" uid="uid://ca4fm1buaq8ky" path="res://Assets/slots/uncommon_Slot.png" id="2_psafj"]
-[ext_resource type="Script" path="res://slot.gd" id="3_5tt2m"]
-[ext_resource type="Script" uid="uid://dvlf6u1vteunn" path="res://scroll_container.gd" id="3_dw5ng"]
+[ext_resource type="Script" uid="uid://co830w0if06q" path="res://slot.gd" id="3_5tt2m"]
+[ext_resource type="Texture2D" uid="uid://cosmv5x5edfcr" path="res://Assets/select.png" id="6_0xmy5"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5tt2m"]
 texture = ExtResource("2_psafj")
 
-[node name="Control" type="Control" unique_id=1984199847]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjyhv"]
+atlas = ExtResource("6_0xmy5")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ormsd"]
+atlas = ExtResource("6_0xmy5")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ho8i8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjyhv")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_ormsd")
+}],
+"loop": true,
+"name": &"select",
+"speed": 5.0
+}]
+
+[node name="Control" type="Control" unique_id=1984199847 groups=["inventory"]]
+z_index = 2
 layout_mode = 3
-anchor_left = 0.062000003
-anchor_top = 0.102000006
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -148.04001
-offset_top = -161.16
-offset_right = -29.0
-offset_bottom = -51.0
+anchor_left = 0.101
+anchor_top = 0.10300001
+anchor_right = 0.101
+anchor_bottom = 0.10300001
+offset_left = -154.92001
+offset_top = -93.240005
+offset_right = 155.07999
+offset_bottom = 185.76
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0xmy5")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1413968892]
 layout_mode = 0
-offset_left = 70.0
-offset_top = 64.0
-offset_right = 275.0
-offset_bottom = 152.0
+offset_left = 47.0
+offset_top = 76.0
+offset_right = 251.99988
+offset_bottom = 164.0
 texture = ExtResource("1_psafj")
 
 [node name="InventoryBg" type="Sprite2D" parent="TextureRect" unique_id=1947909022]
@@ -43,7 +66,6 @@ offset_left = 63.0
 offset_top = 6.0
 offset_right = 201.0
 offset_bottom = 82.0
-script = ExtResource("3_dw5ng")
 
 [node name="MarginContainer" type="MarginContainer" parent="TextureRect/ScrollContainer" unique_id=1947750843]
 layout_mode = 2
@@ -61,6 +83,13 @@ custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot" unique_id=1581244220]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.67162555
 
 [node name="Slot2" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=1569315277]
 custom_minimum_size = Vector2(24, 24)
@@ -176,7 +205,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
 
-[node name="InventoryBg" type="Sprite2D" parent="." unique_id=1404308001]
-position = Vector2(99.00001, 94.99999)
+[node name="InventoryBg2" type="Sprite2D" parent="TextureRect" unique_id=1404308001]
+position = Vector2(29.000008, 30.999985)
 scale = Vector2(1.958333, 2.0625)
 texture = ExtResource("2_mrqgh")
