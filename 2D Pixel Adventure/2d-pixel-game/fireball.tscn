@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://m02okcu51yij"]
+
+[ext_resource type="Script" uid="uid://8twqa5verat4" path="res://fireball.gd" id="1_olwj8"]
+[ext_resource type="Texture2D" uid="uid://clkdqxt1mrorb" path="res://enemy/Flying Demon 2D Pixel Art/Sprites/projectile.png" id="1_sf4mh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_olwj8"]
+size = Vector2(21, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wdani"]
+size = Vector2(21, 9)
+
+[node name="Node2D" type="CharacterBody2D" unique_id=1410306190]
+scale = Vector2(0.5, 0.5)
+collision_layer = 8
+script = ExtResource("1_olwj8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=898460207]
+z_index = 1
+texture = ExtResource("1_sf4mh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1640058313]
+position = Vector2(-5.5, 2.5)
+shape = SubResource("RectangleShape2D_olwj8")
+
+[node name="hitbox" type="Area2D" parent="." unique_id=1877072666]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" unique_id=1346525176]
+position = Vector2(-5.5, 2.5)
+shape = SubResource("RectangleShape2D_wdani")
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
