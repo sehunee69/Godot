@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 # --- Audio ---
 @onready var fx_death: AudioStreamPlayer2D = $fx_death
+@onready var fx_attack: AudioStreamPlayer2D = $fx_attack
+@onready var fx_hit: AudioStreamPlayer2D = $fx_hit
 
 # --- Stats ---
 var speed = 45
@@ -114,6 +116,7 @@ func _on_attack_hit_timer_timeout():
 		if player.has_method("apply_knockback"):
 			player.apply_knockback(global_position)
 		print("Slime hit player!")
+		fx_attack.play()
 
 # ─────────────────────────────────────────────
 # ANIMATION FINISHED
@@ -172,6 +175,7 @@ func take_damage(amount: int):
 	$attack_hit_timer.stop()
 	play_animation("damaged")
 	print("Slime took damage! Health:", health)
+	fx_hit.play()
 	$take_damage_cooldown.start()
 
 	if not player_chase:

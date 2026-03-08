@@ -12,7 +12,8 @@
 [ext_resource type="AudioStream" uid="uid://dy3hir0o80742" path="res://sounds/sound-fx/bow/bow_fire.mp3" id="10_hj3w6"]
 [ext_resource type="Texture2D" uid="uid://c0w0mpr6t7dwv" path="res://png/indicator/Charging bow indicator/UI_Flat_Bar12a.png" id="11_hodpe"]
 [ext_resource type="Texture2D" uid="uid://by4ahdhnl3a0s" path="res://png/indicator/Charging bow indicator/UI_Flat_BarFill01f.png" id="12_hodpe"]
-[ext_resource type="Script" uid="uid://c43j5bl8apd6n" path="res://scenes/pick_up_area.gd" id="13_qoi8n"]
+[ext_resource type="Script" path="res://scenes/pick_up_area.gd" id="13_qoi8n"]
+[ext_resource type="AudioStream" uid="uid://dwglha2qtdqjf" path="res://sounds/sound-fx/player/freesound_community-male_hurt7-48124.mp3" id="14_pvtuh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ltrl"]
 atlas = ExtResource("2_k0aba")
@@ -527,6 +528,9 @@ script = ExtResource("13_qoi8n")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pickUpArea" unique_id=1450826915]
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_pvtuh")
+
+[node name="fx_hit" type="AudioStreamPlayer2D" parent="." unique_id=885106073]
+stream = ExtResource("14_pvtuh")
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]

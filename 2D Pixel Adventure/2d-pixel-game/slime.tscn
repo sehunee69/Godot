@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://co73w0dkj65qn" path="res://enemy/Slime/Slime_Idle.png" id="4_da4t2"]
 [ext_resource type="Texture2D" uid="uid://bw3ka1c1hl0hb" path="res://enemy/Slime/Slime_Jump.png" id="5_jrxk1"]
 [ext_resource type="Texture2D" uid="uid://btwyd4sj55jj7" path="res://enemy/Slime/Slime_Wiggle.png" id="6_alucd"]
+[ext_resource type="AudioStream" uid="uid://mvkblcyloxyi" path="res://sounds/sound-fx/slime/universfield-slime-impact-352473.mp3" id="8_jrxk1"]
+[ext_resource type="AudioStream" uid="uid://b15gbsiylaafj" path="res://sounds/sound-fx/slime/floraphonic-goopy-slime-4-219777.mp3" id="9_alucd"]
+[ext_resource type="AudioStream" uid="uid://bx0la2n1pf2jk" path="res://sounds/sound-fx/slime/death.mp3" id="10_8w6w5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8w6w5"]
 atlas = ExtResource("1_2002g")
@@ -989,7 +992,7 @@ script = ExtResource("1_bratd")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=972816224]
 sprite_frames = SubResource("SpriteFrames_u803a")
 animation = &"walking"
-frame_progress = 0.73662657
+frame_progress = 0.09685571
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1344184502]
 shape = SubResource("CircleShape2D_5b0gg")
@@ -1024,6 +1027,15 @@ one_shot = true
 [node name="take_damage_cooldown" type="Timer" parent="." unique_id=1514426478]
 wait_time = 0.6
 one_shot = true
+
+[node name="fx_attack" type="AudioStreamPlayer2D" parent="." unique_id=1783391527]
+stream = ExtResource("8_jrxk1")
+
+[node name="fx_hit" type="AudioStreamPlayer2D" parent="." unique_id=993215783]
+stream = ExtResource("9_alucd")
+
+[node name="fx_death" type="AudioStreamPlayer2D" parent="." unique_id=165896948]
+stream = ExtResource("10_8w6w5")
 
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]

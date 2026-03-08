@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 # --- Audio ---
 @onready var fx_death: AudioStreamPlayer2D = $fx_death
+@onready var fx_attack: AudioStreamPlayer2D = $fx_attack
+@onready var fx_hit: AudioStreamPlayer2D = $fx_hit
 
 # --- Stats ---
 var speed = 60
@@ -105,6 +107,7 @@ func _fire_fireball():
 		return
 
 	var fireball = fireball_scene.instantiate()
+	fx_attack.play()
 	print("Fireball spawned at:", global_position)
 	var dir = (player.global_position - global_position).normalized()
 	fireball.global_position = global_position
@@ -170,6 +173,7 @@ func take_damage(amount: int):
 	is_attacking = false
 	play_animation("damaged")
 	print("Flying demon took damage! Health:", health)
+	fx_hit.play()
 	$take_damage_cooldown.start()
 
 	if not player_chase:
