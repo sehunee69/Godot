@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://q1h4eold4xf3" path="res://oderArea.gd" id="9_efxa6"]
 [ext_resource type="Script" uid="uid://5wh4x8s033im" path="res://oderAreaTest.gd" id="10_dg77c"]
 [ext_resource type="PackedScene" uid="uid://ce716scw8yhvb" path="res://hud.tscn" id="11_efxa6"]
+[ext_resource type="PackedScene" uid="uid://duwwcq6rjifh1" path="res://item_drop.tscn" id="13_ycdy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("1_0xm2m")
@@ -563,6 +564,10 @@ z_index = 1
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(269, 359)
+
+[node name="ItemDrop" parent="." unique_id=1959287552 instance=ExtResource("13_ycdy4")]
+visibility_layer = 4
+position = Vector2(-309, -49)
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

@@ -12,9 +12,14 @@ extends CharacterBody2D
 var health_bar_fill = null
 
 # --- Inventory ---
+#var inventory_scene = preload("res://inventory.tscn")
+#var inventory_instance = null
+#var inventory_open = false
+
 var inventory_scene = preload("res://inventory.tscn")
 var inventory_instance = null
 var inventory_open = false
+var canvas_layer = null
 
 # --- Arrow ---
 var arrow_scene = preload("res://arrow.tscn")
@@ -130,25 +135,41 @@ func _unhandled_input(event):
 	if event.is_action_pressed("Inventory"):
 		toggle_inventory()
 
+#func toggle_inventory():
+	#if not inventory_open:
+		#var canvas_layer = CanvasLayer.new()
+		#canvas_layer.name = "InventoryLayer"
+		#get_tree().current_scene.add_child(canvas_layer)
+		#inventory_instance = inventory_scene.instantiate()
+		#canvas_layer.add_child(inventory_instance)
+		#await get_tree().process_frame
+		#var screen_size = get_viewport().get_visible_rect().size
+		#var inventory_size = inventory_instance.get_rect().size
+		#inventory_instance.position = (screen_size - inventory_size) / 2
+		#inventory_open = true
+	#else:
+		#if inventory_instance != null:
+			#var canvas_layer = get_tree().current_scene.get_node_or_null("InventoryLayer")
+			#if canvas_layer:
+				#canvas_layer.queue_free()
+			#inventory_instance = null
+		#inventory_open = false
+		
 func toggle_inventory():
-	if not inventory_open:
-		var canvas_layer = CanvasLayer.new()
+	if inventory_instance == null:
+		canvas_layer = CanvasLayer.new()
 		canvas_layer.name = "InventoryLayer"
-		get_tree().current_scene.add_child(canvas_layer)
+		get_tree().root.add_child(canvas_layer)
 		inventory_instance = inventory_scene.instantiate()
 		canvas_layer.add_child(inventory_instance)
+		inventory_instance.add_to_group("inventory")
 		await get_tree().process_frame
 		var screen_size = get_viewport().get_visible_rect().size
 		var inventory_size = inventory_instance.get_rect().size
 		inventory_instance.position = (screen_size - inventory_size) / 2
-		inventory_open = true
-	else:
-		if inventory_instance != null:
-			var canvas_layer = get_tree().current_scene.get_node_or_null("InventoryLayer")
-			if canvas_layer:
-				canvas_layer.queue_free()
-			inventory_instance = null
-		inventory_open = false
+
+	inventory_open = !inventory_open
+	inventory_instance.visible = inventory_open
 # ─────────────────────────────────────────────
 # MOVEMENT
 # ─────────────────────────────────────────────
