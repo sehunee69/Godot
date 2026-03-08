@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" path="res://item_drop.tscn" id="13_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://cskiunt7gqbvr" path="res://slime.tscn" id="14_w48qg"]
 [ext_resource type="PackedScene" uid="uid://bervci4suwstm" path="res://overworld_portal.tscn" id="15_vivmo"]
+[ext_resource type="PackedScene" uid="uid://bisy6t36kka45" path="res://undead_executioner.tscn" id="16_2cqfq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("1_0xm2m")
@@ -540,7 +541,7 @@ y_sort_enabled = true
 position = Vector2(108, 122)
 
 [node name="player" parent="." unique_id=2099649226 instance=ExtResource("3_h2yge")]
-position = Vector2(-1784, 1798)
+position = Vector2(-803, 1802)
 
 [node name="enemy2" parent="." unique_id=674521427 instance=ExtResource("4_1bvp3")]
 z_index = 1
@@ -602,6 +603,9 @@ position = Vector2(-1385, 1804)
 
 [node name="overworld_portal" parent="Teleport" unique_id=805806807 instance=ExtResource("15_vivmo")]
 position = Vector2(-1631, 1803)
+
+[node name="undead_executioner" parent="." unique_id=2098419271 groups=["enemies"] instance=ExtResource("16_2cqfq")]
+position = Vector2(-526, 1784)
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

@@ -43,6 +43,9 @@ var laser_damage_cooldown = false
 var hibernate_heal_amount = 80
 var is_hibernating = false
 
+# --- HUD ---
+var hud = null
+
 # ─────────────────────────────────────────────
 # BOSS PHASE SYSTEM
 # ─────────────────────────────────────────────
@@ -59,6 +62,9 @@ func _ready():
 	$AnimatedSprite2D.animation_finished.connect(_on_animation_finished)
 	laser_hitbox.monitoring = false
 	laser_hitbox.monitorable = true
+	
+	hud = get_tree().current_scene.get_node_or_null("HUD")
+	print("Stone enemy HUD found:", hud)
 
 	var sf = $AnimatedSprite2D.sprite_frames
 	if sf.has_animation("stone_laser_eye_on"):
@@ -370,6 +376,9 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		player = body
 		player_chase = true
+		if hud:
+			hud.show_boss_bar("Stone Guardian")
+			hud.update_boss_health(health, max_health)
 
 func _on_detection_area_body_exited(body: Node2D) -> void:
 	if body == player:
@@ -401,6 +410,12 @@ func take_damage(amount: int):
 		is_attacking = false
 
 	health -= amount
+	print("Updating boss health bar:", health, "/", max_health)
+	if hud:
+		hud.update_boss_health(health, max_health)
+	else:
+		print("HUD is null in take_damage!")
+
 	can_take_damage = false
 	print("Boss took damage! Health:", health)
 
@@ -435,6 +450,8 @@ func take_damage(amount: int):
 # DEATH
 # ─────────────────────────────────────────────
 func die():
+	if hud:
+		hud.hide_boss_bar()
 	laser_tracking = false
 	laser_hitbox.monitoring = false
 	laser_sprite.visible = false
