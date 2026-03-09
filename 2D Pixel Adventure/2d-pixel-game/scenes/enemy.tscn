@@ -506,7 +506,7 @@ size = Vector2(9, 12.75)
 z_index = 2
 z_as_relative = false
 collision_layer = 8
-collision_mask = 3
+collision_mask = 323
 motion_mode = 1
 script = ExtResource("1_md0e3")
 
