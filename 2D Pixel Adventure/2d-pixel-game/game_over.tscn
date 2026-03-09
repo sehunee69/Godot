@@ -26,6 +26,10 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "RETRY"
 
+[node name="MainMenu" type="Button" parent="ColorRect/VBoxContainer" unique_id=24551818]
+layout_mode = 2
+text = "Main Menu"
+
 [node name="Button2" type="Button" parent="ColorRect/VBoxContainer" unique_id=1308266866]
 layout_mode = 2
 text = "QUIT"

@@ -16,7 +16,8 @@ var health_bar_fill = null
 #var inventory_scene = preload("res://inventory.tscn")
 #var inventory_instance = null
 #var inventory_open = false
-
+var pause_menu_scene = preload("res://pause_menu.tscn")
+var pause_menu_instance = null
 var inventory_scene = preload("res://inventory.tscn")
 var inventory_instance = null
 var inventory_open = false
@@ -141,6 +142,18 @@ func _update_health_bar():
 func _unhandled_input(event):
 	if event.is_action_pressed("Inventory"):
 		toggle_inventory()
+
+	if event.is_action_pressed("pause"):   # ← Escape key by default
+		toggle_pause()
+
+func toggle_pause():
+	if pause_menu_instance == null or not is_instance_valid(pause_menu_instance):
+		pause_menu_instance = pause_menu_scene.instantiate()
+		get_tree().root.add_child(pause_menu_instance)
+	else:
+		get_tree().paused = false
+		pause_menu_instance.queue_free()
+		pause_menu_instance = null
 
 #func toggle_inventory():
 	#if not inventory_open:
@@ -293,6 +306,15 @@ func _deal_melee_damage():
 			print("Enemy hit!")
 		if body.has_method("apply_knockback"):
 			body.apply_knockback(global_position)
+
+		if body.is_in_group("destructibles") and body.has_method("take_damage"):
+			body.take_damage()
+			print("Destructible hit!")
+
+	for area in $player_hitbox.get_overlapping_areas():
+		var parent = area.get_parent()
+		if parent.is_in_group("destructibles") and parent.has_method("take_damage"):
+			parent.take_damage()
 
 func _play_attack_anim(anim_name: String):
 	$AnimatedSprite2D.flip_h = (current_dir == "left")
