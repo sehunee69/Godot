@@ -1,0 +1,98 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bsi8hrda8nk62"]
+
+[ext_resource type="Texture2D" uid="uid://1regjfmrqggy" path="res://Assets/animations/sakura blade animation/SakuraBlade_anim1.png" id="1_dun47"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oamje"]
+atlas = ExtResource("1_dun47")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dik1b"]
+atlas = ExtResource("1_dun47")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfwta"]
+atlas = ExtResource("1_dun47")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qtjd"]
+atlas = ExtResource("1_dun47")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6d7h8"]
+atlas = ExtResource("1_dun47")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1oogk"]
+atlas = ExtResource("1_dun47")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2mb2"]
+atlas = ExtResource("1_dun47")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trys6"]
+atlas = ExtResource("1_dun47")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jufmn"]
+atlas = ExtResource("1_dun47")
+region = Rect2(800, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjie1"]
+atlas = ExtResource("1_dun47")
+region = Rect2(900, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rukdr"]
+atlas = ExtResource("1_dun47")
+region = Rect2(1000, 0, 100, 100)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oamje")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dik1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfwta")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qtjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6d7h8")
+}],
+"loop": false,
+"name": &"SakuraBlade_1",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1oogk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2mb2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trys6")
+}],
+"loop": false,
+"name": &"SakuraBlade_2",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jufmn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjie1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rukdr")
+}],
+"loop": false,
+"name": &"SakuraBlade_3",
+"speed": 8.0
+}]

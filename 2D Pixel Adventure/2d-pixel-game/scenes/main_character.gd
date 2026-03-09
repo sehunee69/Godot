@@ -9,6 +9,18 @@ extends CharacterBody2D
 @onready var bar_fill = $BowChargeUI/BarFill
 @onready var fx_hit: AudioStreamPlayer2D = $fx_hit
 
+# --- Attack Animations --- 
+# --- Combo ---
+@onready var combo_reset_timer = $combo_reset_timer
+var combo_count = 0
+var combo_timer = 0.0
+var combo_window = 0.2
+
+# --- Weapon Sprite ---
+@onready var weapon_sprite: AnimatedSprite2D = $WeaponSprite
+
+
+
 # --- Status ---
 var health_bar_fill = null
 
@@ -69,6 +81,13 @@ const PICKUP_RANGE = 64.0
 # READY
 # ─────────────────────────────────────────────
 func _ready():
+	# Load weapon frames
+	weapon_sprite.sprite_frames = preload("res://Assets/animations/sakura blade animation/sakuraBlade1.tres")
+	weapon_sprite.visible = false
+	
+	# connect weapon sprite animation finished too
+	weapon_sprite.animation_finished.connect(_on_weapon_animation_finished)
+	
 	var sf = $AnimatedSprite2D.sprite_frames
 	if sf.has_animation("bow_draw"):
 		bow_total_frames = sf.get_frame_count("bow_draw")
@@ -85,6 +104,11 @@ func _ready():
 	health_bar_fill = get_tree().current_scene.get_node_or_null("HUD/player_health_bar/HealthBarUI/BarFill")
 	_update_health_bar()
 	
+func _on_weapon_animation_finished():
+	var anim = weapon_sprite.animation
+	if anim.begins_with("SakuraBlade_"):
+		weapon_sprite.visible = false
+
 func _center_inventory():
 	var screen_size = get_viewport().get_visible_rect().size
 	inventory_instance.position = screen_size / 2 - inventory_instance.size / 2
@@ -118,6 +142,8 @@ func _physics_process(delta):
 	attack()
 	_process_bow(delta)
 	_process_lock_on()
+	
+	# testing for sakura Blade
 
 func apply_knockback(source_position: Vector2):
 	var direction = (global_position - source_position).normalized()
@@ -245,6 +271,10 @@ func play_anim(anim: String):
 		return
 	if bow_state != BowState.IDLE and anim != "bow_draw" and anim != "bow_shoot" and anim != "damaged" and anim != "death":
 		return
+	# ← ADD THIS: block idle/walking during attack
+	if attack_ip and anim == "idle" or attack_ip and anim == "walking":
+		return
+	print("=== play_anim called: ", anim, " | attack_ip: ", attack_ip)
 	$AnimatedSprite2D.flip_h = (current_dir == "left")
 	$AnimatedSprite2D.play(anim)
 
@@ -272,6 +302,18 @@ func _on_animation_finished():
 	elif anim == "bow_shoot":
 		_reset_bow()
 		play_anim("idle")
+	elif anim.begins_with("sakuraBlade_lightAttack"):
+		attack_ip = false
+		can_attack = true
+		if anim == "sakuraBlade_lightAttack3":
+			combo_count = 0
+			play_anim("idle")
+		else:
+			combo_reset_timer.start()
+
+func _on_combo_reset_timer_timeout():
+	combo_count = 0
+	play_anim("idle")
 
 # ─────────────────────────────────────────────
 # ATTACK
@@ -286,18 +328,23 @@ func attack():
 		return
 
 	if Input.is_action_just_pressed("attack"):
+		$combo_reset_timer.stop()  # cancel reset if mid combo
+		combo_count += 1
+		if combo_count > 3:
+			combo_count = 1
 		attack_ip = true
 		can_attack = false
-		_play_attack_anim("attack")
+		_play_attack_anim("sakuraBlade_lightAttack" + str(combo_count))
 		sfx_sword_hit.play()
-		$attack_cooldown_timer.start()
+		# NO attack_cooldown_timer here
 
 	elif Input.is_action_just_pressed("specialAttack"):
+		combo_count = 0
 		attack_ip = true
 		can_attack = false
 		_play_attack_anim("special_attack")
 		sfx_special_hit.play()
-		$attack_cooldown_timer.start()
+		$attack_cooldown_timer.start()  # only for special
 
 func _deal_melee_damage():
 	for body in $player_hitbox.get_overlapping_bodies():
@@ -317,11 +364,19 @@ func _deal_melee_damage():
 			parent.take_damage()
 
 func _play_attack_anim(anim_name: String):
+	#$AnimatedSprite2D.flip_h = (current_dir == "left")
+	#$AnimatedSprite2D.play(anim_name)
+	#$attack_lunge_timer.start()
+	#$deal_attack_timer.start()
+	var current_combo = combo_count  # capture current value
+	print("=== PLAYING ATTACK: ", anim_name, " | has anim: ", $AnimatedSprite2D.sprite_frames.has_animation(anim_name))
 	$AnimatedSprite2D.flip_h = (current_dir == "left")
 	$AnimatedSprite2D.play(anim_name)
-	$attack_lunge_timer.start()  # ← triggers lunge at frame 3
+	weapon_sprite.flip_h = (current_dir == "left")
+	weapon_sprite.visible = true
+	weapon_sprite.play("SakuraBlade_" + str(current_combo))
+	$attack_lunge_timer.start()
 	$deal_attack_timer.start()
-
 
 
 # ─────────────────────────────────────────────
@@ -422,7 +477,6 @@ func _fire_arrow():
 # HIT WINDOW (melee)
 # ─────────────────────────────────────────────
 func _on_deal_attack_timer_timeout():
-	attack_ip = false   # ← only resets state now, no damage here
 	_deal_melee_damage()
 
 # ─────────────────────────────────────────────
