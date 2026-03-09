@@ -16,7 +16,8 @@ var health_bar_fill = null
 #var inventory_scene = preload("res://inventory.tscn")
 #var inventory_instance = null
 #var inventory_open = false
-
+var pause_menu_scene = preload("res://pause_menu.tscn")
+var pause_menu_instance = null
 var inventory_scene = preload("res://inventory.tscn")
 var inventory_instance = null
 var inventory_open = false
@@ -41,7 +42,8 @@ var is_taking_damage = false
 var is_dead = false
 var attack_ip = false
 var current_dir = "right"
-var can_attack = true
+var can_attack = false
+var is_awakening = true
 
 # --- Lock-on ---
 var locked_target = null
@@ -53,6 +55,9 @@ enum BowState { IDLE, DRAWING, HELD }
 var bow_state: BowState = BowState.IDLE
 var bow_draw_done = false
 var bow_total_frames: int = 0
+
+# --- Game State ---
+var game_over_scene = preload("res://game_over.tscn")
 
 const SPEED = 70
 const BOW_SPEED = 5 
@@ -70,10 +75,12 @@ func _ready():
 		sf.set_animation_loop("bow_draw", false)
 	if sf.has_animation("bow_shoot"):
 		sf.set_animation_loop("bow_shoot", false)
+	if sf.has_animation("awaken"):              # ← add this
+		sf.set_animation_loop("awaken", false)
 	print("Bow draw frames:", bow_total_frames)
 
 	$AnimatedSprite2D.animation_finished.connect(_on_animation_finished)
-	play_anim("idle")
+	play_anim("awaken")
 	_hide_bow_charge_ui()
 	health_bar_fill = get_tree().current_scene.get_node_or_null("HUD/player_health_bar/HealthBarUI/BarFill")
 	_update_health_bar()
@@ -136,6 +143,18 @@ func _unhandled_input(event):
 	if event.is_action_pressed("Inventory"):
 		toggle_inventory()
 
+	if event.is_action_pressed("pause"):   # ← Escape key by default
+		toggle_pause()
+
+func toggle_pause():
+	if pause_menu_instance == null or not is_instance_valid(pause_menu_instance):
+		pause_menu_instance = pause_menu_scene.instantiate()
+		get_tree().root.add_child(pause_menu_instance)
+	else:
+		get_tree().paused = false
+		pause_menu_instance.queue_free()
+		pause_menu_instance = null
+
 #func toggle_inventory():
 	#if not inventory_open:
 		#var canvas_layer = CanvasLayer.new()
@@ -175,6 +194,11 @@ func toggle_inventory():
 # MOVEMENT
 # ─────────────────────────────────────────────
 func player_movement():
+	if is_awakening:              # ← add this guard
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+
 	if attack_ip:
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -227,6 +251,12 @@ func play_anim(anim: String):
 func _on_animation_finished():
 	var anim = $AnimatedSprite2D.animation
 
+	if anim == "awaken":          # ← add this block FIRST
+		is_awakening = false
+		can_attack = true
+		play_anim("idle")
+		return
+
 	if anim == "bow_draw":
 		bow_draw_done = true
 		print("Fully charged! R still held:", Input.is_action_pressed("bow"))
@@ -252,7 +282,7 @@ func is_player_attacking() -> bool:
 	return attack_ip and bow_state == BowState.IDLE
 
 func attack():
-	if is_dead or is_taking_damage or not can_attack:
+	if is_dead or is_taking_damage or not can_attack or is_awakening:
 		return
 
 	if Input.is_action_just_pressed("attack"):
@@ -276,6 +306,15 @@ func _deal_melee_damage():
 			print("Enemy hit!")
 		if body.has_method("apply_knockback"):
 			body.apply_knockback(global_position)
+
+		if body.is_in_group("destructibles") and body.has_method("take_damage"):
+			body.take_damage()
+			print("Destructible hit!")
+
+	for area in $player_hitbox.get_overlapping_areas():
+		var parent = area.get_parent()
+		if parent.is_in_group("destructibles") and parent.has_method("take_damage"):
+			parent.take_damage()
 
 func _play_attack_anim(anim_name: String):
 	$AnimatedSprite2D.flip_h = (current_dir == "left")
@@ -441,6 +480,8 @@ func die():
 	$death_timer.start()
 
 func _on_death_timer_timeout():
+	var game_over = game_over_scene.instantiate()
+	get_tree().root.add_child(game_over)
 	queue_free()
 
 # ─────────────────────────────────────────────
