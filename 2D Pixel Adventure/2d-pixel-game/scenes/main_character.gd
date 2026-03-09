@@ -41,7 +41,8 @@ var is_taking_damage = false
 var is_dead = false
 var attack_ip = false
 var current_dir = "right"
-var can_attack = true
+var can_attack = false
+var is_awakening = true
 
 # --- Lock-on ---
 var locked_target = null
@@ -53,6 +54,9 @@ enum BowState { IDLE, DRAWING, HELD }
 var bow_state: BowState = BowState.IDLE
 var bow_draw_done = false
 var bow_total_frames: int = 0
+
+# --- Game State ---
+var game_over_scene = preload("res://game_over.tscn")
 
 const SPEED = 70
 const BOW_SPEED = 5 
@@ -70,10 +74,12 @@ func _ready():
 		sf.set_animation_loop("bow_draw", false)
 	if sf.has_animation("bow_shoot"):
 		sf.set_animation_loop("bow_shoot", false)
+	if sf.has_animation("awaken"):              # ← add this
+		sf.set_animation_loop("awaken", false)
 	print("Bow draw frames:", bow_total_frames)
 
 	$AnimatedSprite2D.animation_finished.connect(_on_animation_finished)
-	play_anim("idle")
+	play_anim("awaken")
 	_hide_bow_charge_ui()
 	health_bar_fill = get_tree().current_scene.get_node_or_null("HUD/player_health_bar/HealthBarUI/BarFill")
 	_update_health_bar()
@@ -175,6 +181,11 @@ func toggle_inventory():
 # MOVEMENT
 # ─────────────────────────────────────────────
 func player_movement():
+	if is_awakening:              # ← add this guard
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+
 	if attack_ip:
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -227,6 +238,12 @@ func play_anim(anim: String):
 func _on_animation_finished():
 	var anim = $AnimatedSprite2D.animation
 
+	if anim == "awaken":          # ← add this block FIRST
+		is_awakening = false
+		can_attack = true
+		play_anim("idle")
+		return
+
 	if anim == "bow_draw":
 		bow_draw_done = true
 		print("Fully charged! R still held:", Input.is_action_pressed("bow"))
@@ -252,7 +269,7 @@ func is_player_attacking() -> bool:
 	return attack_ip and bow_state == BowState.IDLE
 
 func attack():
-	if is_dead or is_taking_damage or not can_attack:
+	if is_dead or is_taking_damage or not can_attack or is_awakening:
 		return
 
 	if Input.is_action_just_pressed("attack"):
@@ -441,6 +458,8 @@ func die():
 	$death_timer.start()
 
 func _on_death_timer_timeout():
+	var game_over = game_over_scene.instantiate()
+	get_tree().root.add_child(game_over)
 	queue_free()
 
 # ─────────────────────────────────────────────

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bv8hlu1adwsgv" path="res://scenes/main_character.gd" id="1_ig48j"]
 [ext_resource type="Texture2D" uid="uid://yjmhbjkxgfm0" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/Soldier.png" id="2_k0aba"]
+[ext_resource type="Texture2D" uid="uid://2b2jse1h5axo" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Death.png" id="3_8rh4e"]
 [ext_resource type="Texture2D" uid="uid://dxmvb38njt57u" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack03.png" id="3_d3a2h"]
 [ext_resource type="Texture2D" uid="uid://crxi82j5vreig" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/Soldier-Idle.png" id="3_ogw1n"]
 [ext_resource type="Texture2D" uid="uid://dhgsjdt5lfwki" path="res://main character/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/Soldier-Walk.png" id="4_0d0nc"]
@@ -38,6 +39,30 @@ region = Rect2(400, 200, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_pvtuh"]
 atlas = ExtResource("2_k0aba")
 region = Rect2(500, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2tnn"]
+atlas = ExtResource("3_8rh4e")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnv0t"]
+atlas = ExtResource("3_8rh4e")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1nuq"]
+atlas = ExtResource("3_8rh4e")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w0xis"]
+atlas = ExtResource("3_8rh4e")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4cvu"]
+atlas = ExtResource("3_8rh4e")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ajnh"]
+atlas = ExtResource("3_8rh4e")
+region = Rect2(0, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t3ps3"]
 atlas = ExtResource("3_d3a2h")
@@ -242,6 +267,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_w2tnn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnv0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1nuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1nuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1nuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1nuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w0xis")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4cvu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ajnh")
+}],
+"loop": true,
+"name": &"awaken",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_t3ps3")
 }, {
 "duration": 1.0,
@@ -435,7 +492,8 @@ script = ExtResource("1_ig48j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=442329789]
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_t3ps3")
-animation = &"walking"
+animation = &"awaken"
+frame_progress = 0.40850118
 offset = Vector2(0, -5)
 
 [node name="player_hitbox" type="Area2D" parent="." unique_id=1515897014]

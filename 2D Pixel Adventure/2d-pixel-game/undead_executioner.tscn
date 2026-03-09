@@ -647,7 +647,7 @@ position = Vector2(-5, 2.5)
 shape = SubResource("RectangleShape2D_kx6fl")
 
 [node name="attack_hit_timer_2" type="Timer" parent="." unique_id=1341032793]
-wait_time = 1.3499999999999999
+wait_time = 1.25
 one_shot = true
 
 [node name="summon_area" type="Area2D" parent="." unique_id=91539465]
