@@ -282,18 +282,6 @@ region = Rect2(300, 0, 100, 100)
 atlas = ExtResource("7_2sgdo")
 region = Rect2(0, 100, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_llggw"]
-atlas = ExtResource("7_2sgdo")
-region = Rect2(100, 100, 100, 100)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5n4y4"]
-atlas = ExtResource("7_2sgdo")
-region = Rect2(200, 100, 100, 100)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7ccih"]
-atlas = ExtResource("7_2sgdo")
-region = Rect2(300, 100, 100, 100)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_i6m3h"]
 atlas = ExtResource("8_33d05")
 region = Rect2(0, 0, 50, 50)
@@ -554,19 +542,10 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ues4n")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_llggw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5n4y4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7ccih")
 }],
 "loop": true,
 "name": &"summons",
-"speed": 6.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -601,6 +580,9 @@ radius = 33.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kx6fl"]
 size = Vector2(18, 37)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kx6fl"]
+radius = 130.01538
+
 [node name="undead_executioner" type="CharacterBody2D" unique_id=2098419271]
 collision_layer = 16
 collision_mask = 0
@@ -609,11 +591,10 @@ script = ExtResource("1_kx6fl")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1763017727]
 position = Vector2(0, 4)
 sprite_frames = SubResource("SpriteFrames_k7k2d")
-animation = &"attack"
-frame_progress = 0.02981647
+animation = &"summons"
+frame_progress = 0.93716264
 
 [node name="detection_area" type="Area2D" parent="." unique_id=294361312]
-visible = false
 collision_layer = 8
 collision_mask = 2
 
@@ -622,7 +603,6 @@ position = Vector2(-7, 0)
 shape = SubResource("CircleShape2D_km5um")
 
 [node name="enemy_hitbox" type="Area2D" parent="." unique_id=496551782]
-visible = false
 collision_layer = 8
 collision_mask = 2
 
@@ -642,7 +622,7 @@ one_shot = true
 one_shot = true
 
 [node name="attack_cooldown" type="Timer" parent="." unique_id=1429344766]
-wait_time = 0.8
+wait_time = 1.2
 one_shot = true
 
 [node name="take_damage_cooldown" type="Timer" parent="." unique_id=2024181474]
@@ -662,12 +642,24 @@ one_shot = true
 [node name="fx_summon" type="AudioStreamPlayer2D" parent="." unique_id=1206270108]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1648681831]
+visible = false
 position = Vector2(-5, 2.5)
 shape = SubResource("RectangleShape2D_kx6fl")
 
 [node name="attack_hit_timer_2" type="Timer" parent="." unique_id=1341032793]
 wait_time = 1.3499999999999999
 one_shot = true
+
+[node name="summon_area" type="Area2D" parent="." unique_id=91539465]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="summon_area" unique_id=1033242775]
+position = Vector2(-5, 2)
+shape = SubResource("CircleShape2D_kx6fl")
+
+[node name="summon_cooldown" type="Timer" parent="." unique_id=1478606504]
+wait_time = 5.0
 
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
@@ -679,3 +671,6 @@ one_shot = true
 [connection signal="timeout" from="take_damage_cooldown" to="." method="_on_take_damage_cooldown_timeout"]
 [connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="attack_hit_timer_2" to="." method="_on_attack_hit_timer_2_timeout"]
+[connection signal="body_entered" from="summon_area" to="." method="_on_summon_area_body_entered"]
+[connection signal="body_exited" from="summon_area" to="." method="_on_summon_area_body_exited"]
+[connection signal="timeout" from="summon_cooldown" to="." method="_on_summon_cooldown_timeout"]
