@@ -1,6 +1,7 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://bsi8hrda8nk62"]
 
 [ext_resource type="Texture2D" uid="uid://1regjfmrqggy" path="res://Assets/animations/sakura blade animation/SakuraBlade_anim1.png" id="1_dun47"]
+[ext_resource type="Texture2D" uid="uid://hbavcu2xdi50" path="res://Assets/animations/bowAnimation/woodenBow_anim.png" id="2_oamje"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oamje"]
 atlas = ExtResource("1_dun47")
@@ -45,6 +46,42 @@ region = Rect2(900, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rukdr"]
 atlas = ExtResource("1_dun47")
 region = Rect2(1000, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x8s4k"]
+atlas = ExtResource("2_oamje")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfare"]
+atlas = ExtResource("2_oamje")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18kr0"]
+atlas = ExtResource("2_oamje")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ki4hx"]
+atlas = ExtResource("2_oamje")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ui1p"]
+atlas = ExtResource("2_oamje")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3phk8"]
+atlas = ExtResource("2_oamje")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wudp"]
+atlas = ExtResource("2_oamje")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ox0rm"]
+atlas = ExtResource("2_oamje")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7ejk"]
+atlas = ExtResource("2_oamje")
+region = Rect2(800, 0, 100, 100)
 
 [resource]
 animations = [{
@@ -94,5 +131,42 @@ animations = [{
 }],
 "loop": false,
 "name": &"SakuraBlade_3",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x8s4k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfare")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18kr0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ki4hx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ui1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3phk8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4wudp")
+}],
+"loop": false,
+"name": &"bow_draw_weapon",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ox0rm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7ejk")
+}],
+"loop": false,
+"name": &"bow_shoot_weapon",
 "speed": 8.0
 }]

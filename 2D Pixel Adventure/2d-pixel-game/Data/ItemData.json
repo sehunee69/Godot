@@ -1,37 +1,37 @@
 {
   "Sakura Blade": {
-    "ItemCategory": "Sword",
-    "ItemAttack": 55,
-    "StackSize": 1,
-    "Stackable": false
+	"ItemCategory": "Sword",
+	"ItemAttack": 55,
+	"StackSize": 1,
+	"Stackable": false
   },
   "Iron Sword": {
-    "ItemCategory": "Sword",
-    "ItemAttack": 30,
-    "StackSize": 1,
-    "Stackable": false
+	"ItemCategory": "Sword",
+	"ItemAttack": 30,
+	"StackSize": 1,
+	"Stackable": false
   },
   "Iron Armor": {
-    "ItemCategory": "Armor",
-    "ItemDefense": 20,
-    "StackSize": 1,
-    "Stackable": false
+	"ItemCategory": "Armor",
+	"ItemDefense": 20,
+	"StackSize": 1,
+	"Stackable": false
   },
   "Health Potion": {
-    "ItemCategory": "Consumable",
-    "ItemHeal": 50,
-    "StackSize": 99,
-    "Stackable": true
+	"ItemCategory": "Consumable",
+	"ItemHeal": 50,
+	"StackSize": 99,
+	"Stackable": true
   },
   "Leaf": {
-    "ItemCategory": "Consumable",
-    "ItemHeal": 10,
-    "StackSize": 99,
-    "Stackable": true
+	"ItemCategory": "Consumable",
+	"ItemHeal": 10,
+	"StackSize": 99,
+	"Stackable": true
   },
   "Tree Branch": {
-    "ItemCategory": "Material",
-    "StackSize": 99,
-    "Stackable": true
+	"ItemCategory": "Material",
+	"StackSize": 99,
+	"Stackable": true
   }
 }

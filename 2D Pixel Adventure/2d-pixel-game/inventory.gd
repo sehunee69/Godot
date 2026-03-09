@@ -2,9 +2,14 @@ extends Control
 
 const SlotClass = preload("res://slot.gd")
 @onready var inventory_slots = $TextureRect/ScrollContainer/MarginContainer/GridContainer
+@onready var player_sprite = $TextureRect/AnimatedSprite2D
+
 var holding_item = null
 
 func _ready():
+	
+	player_sprite.play("idle")
+	
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	for inv_slot in inventory_slots.get_children():
 		inv_slot.mouse_filter = Control.MOUSE_FILTER_STOP

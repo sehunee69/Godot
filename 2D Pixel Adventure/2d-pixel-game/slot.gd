@@ -5,6 +5,7 @@ var epic_Slot = preload("res://Assets/slots/epic_Slot.png")
 var rare_Slot = preload("res://Assets/slots/rare_Slot.png")
 var common_Slot = preload("res://Assets/slots/common_Slot.png")
 var uncommon_Slot = preload("res://Assets/slots/uncommon_Slot.png")
+@onready var hover_sprite = $hover_sprite
 
 var legendary_style: StyleBoxTexture = null
 var epic_style: StyleBoxTexture = null
@@ -37,7 +38,24 @@ func _ready():
 		#item.set_random_texture()
 		#has_item = true  
 		
+	hover_sprite.visible = false
+	hover_sprite.position = size / 2
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
 	refresh_style()
+	
+
+func _on_mouse_entered():
+	if not has_item:
+		return
+	hover_sprite.visible = true
+	hover_sprite.play()
+
+
+func _on_mouse_exited():
+	hover_sprite.visible = false
+	hover_sprite.stop()
+	
 	
 func refresh_style():
 	if not has_item:

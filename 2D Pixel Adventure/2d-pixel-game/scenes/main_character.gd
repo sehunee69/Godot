@@ -106,7 +106,7 @@ func _ready():
 	
 func _on_weapon_animation_finished():
 	var anim = weapon_sprite.animation
-	if anim.begins_with("SakuraBlade_"):
+	if anim.begins_with("SakuraBlade_") or anim == "bow_shoot_weapon":
 		weapon_sprite.visible = false
 
 func _center_inventory():
@@ -116,6 +116,9 @@ func _center_inventory():
 # MAIN LOOP
 # ─────────────────────────────────────────────
 func _physics_process(delta):
+	if bow_state != BowState.IDLE:
+		print("BOW STATE: ", bow_state, " | velocity: ", velocity, " | lunge: ", lunge_force, " | knockback: ", knockback_force)
+	
 	# Knockback
 	if knockback_force.length() > 0.1:
 		velocity = knockback_force
@@ -378,6 +381,17 @@ func _play_attack_anim(anim_name: String):
 	$attack_lunge_timer.start()
 	$deal_attack_timer.start()
 
+	if current_combo == 1:
+		# Delay weapon sprite by one frame
+		await get_tree().process_frame
+		weapon_sprite.flip_h = (current_dir == "left")
+		weapon_sprite.visible = true
+		weapon_sprite.play("SakuraBlade_1")
+	else:
+		weapon_sprite.flip_h = (current_dir == "left")
+		weapon_sprite.visible = true
+		weapon_sprite.play("SakuraBlade_" + str(current_combo))
+
 
 # ─────────────────────────────────────────────
 # BOW SYSTEM
@@ -393,6 +407,8 @@ func _process_bow(_delta):
 		can_attack = false
 		attack_ip = false
 		$AnimatedSprite2D.speed_scale = 1.0
+		weapon_sprite.visible = true
+		weapon_sprite.play("bow_draw_weapon")
 		play_anim("bow_draw")
 		sfx_bow_draw.play()
 		_show_bow_charge_ui()
@@ -415,11 +431,19 @@ func _process_bow(_delta):
 				print("Fully charged — firing!")
 				_fire_arrow()
 				play_anim("bow_shoot")
+				weapon_sprite.play("bow_shoot_weapon")
 				_hide_bow_charge_ui()
 			else:
 				print("Too early — cancelled")
 				_cancel_bow() 
 				play_anim("idle")
+	
+	if weapon_sprite.visible and weapon_sprite.animation == "SakuraBlade_1":
+		match weapon_sprite.frame:
+			0, 1:
+				weapon_sprite.z_index = -1  # behind player
+			2, 3:
+				weapon_sprite.z_index = 1   # in front of player
 
 func _hold_bow_last_frame():
 	$AnimatedSprite2D.stop()
@@ -446,6 +470,10 @@ func _cancel_bow():
 	$bow_attack_timer.stop()      # ← make sure timer isn't running
 
 func _fire_arrow():
+	print("=== FIRE ARROW | lunge_force: ", lunge_force, " | knockback_force: ", knockback_force, " | velocity: ", velocity)
+	lunge_force = Vector2.ZERO
+	knockback_force = Vector2.ZERO
+	
 	if arrow_scene == null:
 		push_error("arrow_scene is null! Check preload path: res://arrow.tscn")
 		return
@@ -472,6 +500,7 @@ func _fire_arrow():
 	get_tree().current_scene.add_child(arrow)
 	sfx_bow_shoot.play()
 	print("Arrow fired! Direction:", direction)
+	print("=== ARROW FIRED | arrow pos: ", arrow.global_position, " | player pos: ", global_position)
 
 # ─────────────────────────────────────────────
 # HIT WINDOW (melee)

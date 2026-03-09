@@ -9,8 +9,7 @@ size = Vector2(17, 3)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ndhl"]
 size = Vector2(16, 3)
 
-[node name="Node2D" type="CharacterBody2D" unique_id=639633883]
-collision_layer = 2
+[node name="Node2D" type="CharacterBody2D" unique_id=231720837]
 script = ExtResource("1_l5ahi")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=144392965]
