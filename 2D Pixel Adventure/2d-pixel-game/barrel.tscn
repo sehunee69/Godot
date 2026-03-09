@@ -104,13 +104,14 @@ animations = [{
 radius = 20.024984
 
 [node name="barrel" type="StaticBody2D" unique_id=910242804 groups=["destructibles"]]
+scale = Vector2(0.8, 0.8)
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_a12vh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=49694517]
 sprite_frames = SubResource("SpriteFrames_opwjn")
-animation = &"idle"
+animation = &"break"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1080147789]
 position = Vector2(1, 5)
