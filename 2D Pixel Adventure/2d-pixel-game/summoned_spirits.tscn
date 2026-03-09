@@ -136,9 +136,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ghqcu"]
+radius = 2.0
 
-[node name="summoned_spirits" type="CharacterBody2D" unique_id=517999199]
-collision_layer = 8
+[node name="summoned_spirits" type="CharacterBody2D" unique_id=517999199 groups=["enemies"]]
+collision_layer = 16
 collision_mask = 3
 script = ExtResource("1_i2vwb")
 
@@ -151,12 +152,14 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" unique_id=724936298]
-position = Vector2(-1, 4)
+position = Vector2(-1, 6)
 shape = SubResource("CircleShape2D_ghqcu")
 
 [node name="damage_cooldown" type="Timer" parent="." unique_id=1881855921]
 wait_time = 0.8
 one_shot = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=257700151]
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]

@@ -20,6 +20,8 @@ var is_stunned = false
 var is_attacking = false
 var is_summoning = false
 var is_invulnerable = false
+var player_insummon_zone = false
+var can_summon = true
 var current_animation = ""
 
 # --- Knockback ---
@@ -93,20 +95,39 @@ func _physics_process(delta):
 			move_and_slide()
 			return
 
-		if dist > 30:
-			play_animation("idle")
-			velocity = (player.position - position).normalized() * speed
-			$AnimatedSprite2D.flip_h = player.position.x < position.x
-		elif can_attack:
-			velocity = Vector2.ZERO
-			_choose_attack()
+		# Phase 2 — stop at summon range, don't close in
+		if current_phase == BossPhase.PHASE_2:
+			if player_inattack_zone and can_attack:
+				velocity = Vector2.ZERO
+				_choose_attack()
+			elif player_insummon_zone and can_attack and can_summon:
+				velocity = Vector2.ZERO
+				_choose_attack()
+			elif player_insummon_zone and not can_summon and not player_inattack_zone:
+				# ← summon on cooldown, chase player to melee range
+				play_animation("idle")
+				velocity = (player.position - position).normalized() * speed
+				$AnimatedSprite2D.flip_h = player.position.x < position.x
+			elif not player_insummon_zone:
+				play_animation("idle")
+				velocity = (player.position - position).normalized() * speed
+				$AnimatedSprite2D.flip_h = player.position.x < position.x
+			else:
+				play_animation("idle")
+				velocity = Vector2.ZERO
 		else:
-			play_animation("idle")
-			$AnimatedSprite2D.flip_h = player.position.x < position.x
-			velocity = Vector2.ZERO
-	else:
-		play_animation("idle")
-		velocity = Vector2.ZERO
+			# Phase 1 — close in and melee
+			if dist > 30:
+				play_animation("idle")
+				velocity = (player.position - position).normalized() * speed
+				$AnimatedSprite2D.flip_h = player.position.x < position.x
+			elif can_attack:
+				velocity = Vector2.ZERO
+				_choose_attack()
+			else:
+				play_animation("idle")
+				$AnimatedSprite2D.flip_h = player.position.x < position.x
+				velocity = Vector2.ZERO
 
 	move_and_slide()
 
@@ -133,21 +154,15 @@ func _choose_attack():
 			_do_attack()
 
 		BossPhase.PHASE_2:
-			# Random: attack or skill
-			if randi() % 2 == 0:
-				_do_attack()
-			else:
-				_do_skill()
-
-		BossPhase.PHASE_3:
-			# Random: attack, skill, or summon
-			var roll = randi() % 3
-			if roll == 0:
-				_do_attack()
-			elif roll == 1:
-				_do_skill()
-			else:
+			if player_inattack_zone:
+				var roll = randi() % 2
+				if roll == 0:
+					_do_attack()
+				else:
+					_do_skill()
+			elif player_insummon_zone and can_attack and can_summon:
 				_do_summon()
+
 
 # ─────────────────────────────────────────────
 # ATTACK — 2-hit swing, 5 damage
@@ -203,6 +218,7 @@ func _on_skill_hit_timer_timeout():
 func _do_summon():
 	is_summoning = true
 	can_attack = false
+	can_summon = false
 	if player != null:
 		$AnimatedSprite2D.flip_h = player.position.x < position.x
 	play_animation("summons")
@@ -248,6 +264,7 @@ func _on_animation_finished():
 		can_attack = false
 		play_animation("idle")
 		$attack_cooldown.start()
+		$summon_cooldown.start()
 
 	elif anim == "death":
 		queue_free()
@@ -371,3 +388,16 @@ func _on_attack_hit_timer_2_timeout():
 			player.knockback_force = dir * 80.0
 		fx_attack.play()
 		print("Executioner second swing hit player!")
+
+
+func _on_summon_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		player_insummon_zone = true
+
+func _on_summon_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		player_insummon_zone = false
+
+
+func _on_summon_cooldown_timeout() -> void:
+	can_summon = true
