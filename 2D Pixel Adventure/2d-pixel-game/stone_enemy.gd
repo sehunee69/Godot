@@ -417,6 +417,7 @@ func take_damage(amount: int):
 		print("HUD is null in take_damage!")
 
 	can_take_damage = false
+	can_attack = false
 	print("Boss took damage! Health:", health)
 
 	if current_animation == "stone_projectile_shoot":
@@ -425,6 +426,7 @@ func take_damage(amount: int):
 
 	if is_hibernating:
 		$take_damage_cooldown.start()
+		$attack_cooldown.start()
 		if health <= 0:
 			die()
 			fx_death.play()
@@ -434,6 +436,7 @@ func take_damage(amount: int):
 	current_animation = ""
 	play_animation("stone_damaged")
 	$take_damage_cooldown.start()
+	$attack_cooldown.start()
 
 	if not player_chase:
 		var players = get_tree().get_nodes_in_group("player")
@@ -488,6 +491,8 @@ func _on_laser_beam_timer_timeout():
 	laser_hitbox.monitoring = false
 	laser_sprite.stop()
 	laser_sprite.play("stone_laser_beam_off")
+	if not is_dead and not is_stunned:   # ← add this guard
+		$attack_cooldown.start()
 
 # ─────────────────────────────────────────────
 # ANIMATION HELPER

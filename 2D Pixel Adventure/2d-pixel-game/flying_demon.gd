@@ -171,10 +171,12 @@ func take_damage(amount: int):
 	can_take_damage = false
 	is_stunned = true
 	is_attacking = false
+	can_attack = false 
 	play_animation("damaged")
 	print("Flying demon took damage! Health:", health)
 	fx_hit.play()
 	$take_damage_cooldown.start()
+	$attack_cooldown.start()
 
 	if not player_chase:
 		var players = get_tree().get_nodes_in_group("player")

@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var bow_charge_ui = $BowChargeUI
 @onready var bar_fill = $BowChargeUI/BarFill
 @onready var fx_hit: AudioStreamPlayer2D = $fx_hit
+@onready var special_attack_cooldown_timer: Timer = $special_attack_cooldown_timer
 
 # --- Attack Animations --- 
 # --- Combo ---
@@ -27,6 +28,7 @@ var combo_window = 0.2
 var health_bar_fill = null
 var stamina_bar_fill = null
 var stamina_bar_bg = null
+var can_special_attack: bool = true
 
 # --- Inventory ---
 var pause_menu_scene = preload("res://pause_menu.tscn")
@@ -317,7 +319,6 @@ func play_anim(anim: String):
 		return
 	if attack_ip and anim == "idle" or attack_ip and anim == "walking":
 		return
-	print("=== play_anim called: ", anim, " | attack_ip: ", attack_ip)
 	$AnimatedSprite2D.flip_h = (current_dir == "left")
 	$AnimatedSprite2D.play(anim)
 
@@ -352,6 +353,14 @@ func _on_animation_finished():
 		else:
 			combo_reset_timer.start()
 
+	elif anim == "special_attack":
+		attack_ip = false
+		can_attack = true
+		combo_count = 0
+		play_anim("idle")
+		$special_attack_cooldown_timer.start()
+	# can_attack restored by $attack_cooldown_timer
+
 func _on_combo_reset_timer_timeout():
 	combo_count = 0
 	play_anim("idle")
@@ -383,16 +392,20 @@ func attack():
 		sfx_sword_hit.play()
 
 	elif Input.is_action_just_pressed("specialAttack"):
-		if stamina < special_stamina_cost:  # ← add this check
+		if not can_special_attack:        # ← separate check
+			return
+		if stamina < special_stamina_cost:
 			_pulse_stamina_bar()
 			return
+
 		combo_count = 0
 		attack_ip = true
 		can_attack = false
+		can_special_attack = false
 		stamina -= special_stamina_cost 
-		_play_attack_anim("special_attack")
+		_update_stamina_bar()
+		_play_special_attack_anim()  # ← separate function
 		sfx_special_hit.play()
-		$attack_cooldown_timer.start()
 
 func _deal_melee_damage():
 	for body in $player_hitbox.get_overlapping_bodies():
@@ -430,6 +443,15 @@ func _play_attack_anim(anim_name: String):
 		weapon_sprite.flip_h = (current_dir == "left")
 		weapon_sprite.visible = true
 		weapon_sprite.play("SakuraBlade_" + str(current_combo))
+
+func _play_special_attack_anim():
+	$AnimatedSprite2D.flip_h = (current_dir == "left")
+	$AnimatedSprite2D.play("special_attack")
+	weapon_sprite.flip_h = (current_dir == "left")
+	weapon_sprite.visible = true
+	weapon_sprite.play("SakuraBlade_Heavy")
+	$attack_lunge_timer.start()
+	$deal_attack_timer.start()
 
 # ─────────────────────────────────────────────
 # BOW SYSTEM
@@ -764,3 +786,7 @@ func getNearbyItems():
 		if global_position.distance_to(item.global_position) <= PICKUP_RANGE:
 			nearby.append(item)
 	return nearby
+
+
+func _on_special_attack_cooldown_timer_timeout():
+	can_special_attack = true
