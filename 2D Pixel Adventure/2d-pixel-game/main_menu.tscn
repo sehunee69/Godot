@@ -18,6 +18,7 @@ texture = ExtResource("2_fu7sn")
 texture = ExtResource("2_fu7sn")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8qtwp"]
+texture = ExtResource("3_glbon")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dy7ct"]
 texture = ExtResource("2_fu7sn")

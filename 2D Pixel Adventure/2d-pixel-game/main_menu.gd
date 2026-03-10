@@ -1,7 +1,7 @@
 extends Control
 
 @onready var btn_start    : Button = $Start
-@onready var btn_quit     : Button = $Quit
+@onready var btn_quit     : Button = $Exit
 
 var settings_scene = preload("res://settings_menu.tscn")
 
@@ -25,9 +25,9 @@ func _on_start():
 		push_error("Failed to load scene. Error code: %s" % err)
 
 
-func _on_load():
-	# Hook up your save system here later
-	print("Load not yet implemented")
+#func _on_load():
+	## Hook up your save system here later
+	##print("Load not yet implemented")
 
 func _on_settings():
 	var settings = settings_scene.instantiate()

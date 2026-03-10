@@ -24,27 +24,14 @@ texture = ExtResource("3_2nc7s")
 process_mode = 3
 script = ExtResource("1_hdmo1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1890332787]
-process_mode = 3
-offset_right = 365.0
-offset_bottom = 210.0
-alignment = 1
-
-[node name="Label" type="Label" parent="VBoxContainer" unique_id=1705558217]
-layout_mode = 2
+[node name="Label" type="Label" parent="." unique_id=1705558217]
+offset_left = 2.0
+offset_top = 62.0
+offset_right = 367.0
+offset_bottom = 85.0
 text = "PAUSED"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Resume" type="Button" parent="VBoxContainer" unique_id=420444424]
-process_mode = 3
-layout_mode = 2
-text = "Resume"
-
-[node name="Settings" type="Button" parent="VBoxContainer" unique_id=206367769]
-process_mode = 3
-layout_mode = 2
-text = "Settings"
 
 [node name="Resume" type="Button" parent="." unique_id=989234633]
 offset_left = 140.0

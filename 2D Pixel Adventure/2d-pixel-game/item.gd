@@ -22,8 +22,8 @@ func set_texture():
 	var path = "res://Assets/weapons/" + item_name + ".png"
 	if ResourceLoader.exists(path):
 		texture_rect.texture = load(path)
-	else:
-		print("Texture not found: ", path)
+	#else:
+		#print("Texture not found: ", path)
 	
 	texture_rect.expand_mode = TextureRect.EXPAND_KEEP_SIZE
 	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED

@@ -118,7 +118,7 @@ func _ready():
 		sf.set_animation_loop("bow_shoot", false)
 	if sf.has_animation("awaken"):
 		sf.set_animation_loop("awaken", false)
-	print("Bow draw frames:", bow_total_frames)
+	#print("Bow draw frames:", bow_total_frames)
 
 	# Configure and connect dash timers
 	dash_timer.wait_time = DASH_DURATION
@@ -317,7 +317,7 @@ func play_anim(anim: String):
 		return
 	if attack_ip and anim == "idle" or attack_ip and anim == "walking":
 		return
-	print("=== play_anim called: ", anim, " | attack_ip: ", attack_ip)
+	#print("=== play_anim called: ", anim, " | attack_ip: ", attack_ip)
 	$AnimatedSprite2D.flip_h = (current_dir == "left")
 	$AnimatedSprite2D.play(anim)
 
@@ -332,7 +332,7 @@ func _on_animation_finished():
 
 	if anim == "bow_draw":
 		bow_draw_done = true
-		print("Fully charged! R still held:", Input.is_action_pressed("bow"))
+		#print("Fully charged! R still held:", Input.is_action_pressed("bow"))
 		if not Input.is_action_pressed("bow"):
 			_cancel_bow()
 			play_anim("idle")
@@ -398,12 +398,12 @@ func _deal_melee_damage():
 	for body in $player_hitbox.get_overlapping_bodies():
 		if body.is_in_group("enemies") and body.has_method("take_damage"):
 			body.take_damage(20)
-			print("Enemy hit!")
+			#print("Enemy hit!")
 		if body.has_method("apply_knockback"):
 			body.apply_knockback(global_position)
 		if body.is_in_group("destructibles") and body.has_method("take_damage"):
 			body.take_damage()
-			print("Destructible hit!")
+			#print("Destructible hit!")
 
 	for area in $player_hitbox.get_overlapping_areas():
 		var parent = area.get_parent()
@@ -412,7 +412,7 @@ func _deal_melee_damage():
 
 func _play_attack_anim(anim_name: String):
 	var current_combo = combo_count
-	print("=== PLAYING ATTACK: ", anim_name, " | has anim: ", $AnimatedSprite2D.sprite_frames.has_animation(anim_name))
+	#print("=== PLAYING ATTACK: ", anim_name, " | has anim: ", $AnimatedSprite2D.sprite_frames.has_animation(anim_name))
 	$AnimatedSprite2D.flip_h = (current_dir == "left")
 	$AnimatedSprite2D.play(anim_name)
 	weapon_sprite.flip_h = (current_dir == "left")
@@ -464,14 +464,14 @@ func _process_bow(_delta):
 	if Input.is_action_just_released("bow"):
 		if bow_state == BowState.DRAWING or bow_state == BowState.HELD:
 			if bow_draw_done:
-				print("Fully charged — firing!")
+				#print("Fully charged — firing!")
 				_fire_arrow()
 				play_anim("bow_shoot")
 				weapon_sprite.flip_h = (current_dir == "left") 
 				weapon_sprite.play("bow_shoot_weapon")
 				_hide_bow_charge_ui()
 			else:
-				print("Too early — cancelled")
+				#print("Too early — cancelled")
 				_cancel_bow()
 				play_anim("idle")
 
@@ -508,7 +508,7 @@ func _cancel_bow():
 	$bow_attack_timer.stop()
 
 func _fire_arrow():
-	print("=== FIRE ARROW | lunge_force: ", lunge_force, " | knockback_force: ", knockback_force, " | velocity: ", velocity)
+	#print("=== FIRE ARROW | lunge_force: ", lunge_force, " | knockback_force: ", knockback_force, " | velocity: ", velocity)
 	lunge_force = Vector2.ZERO
 	knockback_force = Vector2.ZERO
 
@@ -537,7 +537,7 @@ func _fire_arrow():
 	arrow.rotation = direction.angle()
 	get_tree().current_scene.add_child(arrow)
 	sfx_bow_shoot.play()
-	print("Arrow fired! Direction:", direction)
+	#print("Arrow fired! Direction:", direction)
 
 # ─────────────────────────────────────────────
 # DASHING
@@ -650,7 +650,7 @@ func take_damage(amount: int):
 
 	$AnimatedSprite2D.stop()
 	play_anim("damaged")
-	print("Player took damage! Health:", health)
+	#print("Player took damage! Health:", health)
 	$damage_timer.start()
 	$attack_cooldown_timer.start()
 

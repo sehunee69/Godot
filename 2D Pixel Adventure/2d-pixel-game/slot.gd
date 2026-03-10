@@ -86,9 +86,9 @@ func pickFromSlot():
 	#refresh_style()
 func putIntoSlot(new_item):
 	if has_item:
-		print("slot already has item, returning")
+		#print("slot already has item, returning")
 		return
-	print("putting item into slot: ", new_item)
+	#print("putting item into slot: ", new_item)
 	item = new_item
 	if item.get_parent() != null:
 		item.get_parent().remove_child(item)
@@ -96,7 +96,7 @@ func putIntoSlot(new_item):
 	item.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	has_item = true
 	refresh_style()
-	print("slot now has item: ", has_item)
+	#print("slot now has item: ", has_item)
 	
 #func putIntoSlot(new_item):
 	#if has_item:

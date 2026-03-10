@@ -24,7 +24,7 @@ func _ready():
 	play_animation("idle")
 		# debug
 	var nodes = get_tree().get_nodes_in_group("inventory")
-	print("Nodes in inventory group: ", nodes)
+	#print("Nodes in inventory group: ", nodes)
 
 func _physics_process(delta):
 	if is_dead:
@@ -92,14 +92,14 @@ func _on_attack_damage_timer_timeout():
 		return
 
 	if player.has_method("is_player_attacking") and player.is_player_attacking():
-		print("Enemy attack cancelled — player is attacking!")
+		#print("Enemy attack cancelled — player is attacking!")
 		is_attacking = false
 		return
 
 	if player.has_method("take_damage"):
 		player.call("take_damage", 10)
 		fx_axe_hit.play()
-		print("Enemy dealt damage to player!")
+		#print("Enemy dealt damage to player!")
 
 	if player.has_method("apply_knockback"):
 		player.apply_knockback(global_position)
@@ -123,10 +123,10 @@ func take_damage(amount: int):
 		if not players.is_empty():
 			player = players[0]
 			player_chase = true
-			print("Enemy aggroed from damage!")
+			#print("Enemy aggroed from damage!")
 
 	play_animation("damaged")
-	print("Enemy took damage! Health:", health)
+	#print("Enemy took damage! Health:", health)
 	$take_damage_cooldown.start()
 
 	if health <= 0:
@@ -157,12 +157,12 @@ func give_item():
 		var item_node = slot.get_node_or_null("Item/TextureRect")
 		if item_node and item_node.texture == null:
 			item_node.texture = _get_random_texture()
-			print("Texture set: ", item_node.texture)
-			print("TextureRect size: ", item_node.size)
-			print("TextureRect visible: ", item_node.visible)
+			#print("Texture set: ", item_node.texture)
+			#print("TextureRect size: ", item_node.size)
+			#print("TextureRect visible: ", item_node.visible)
 			return
 
-	print("FAILED: No empty slots found!")
+	#print("FAILED: No empty slots found!")
 
 func _get_random_texture():
 	var textures = [
