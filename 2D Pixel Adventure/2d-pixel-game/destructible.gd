@@ -4,7 +4,7 @@ extends StaticBody2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
 
 # --- Settings ---
-const MAX_HITS = 3              # ← breaks after 3 hits
+const MAX_HITS = 2              # ← breaks after 3 hits
 var hit_count: int = 0
 var is_destroyed: bool = false
 var is_playing_anim: bool = false   # ← prevents spam hits during animation
