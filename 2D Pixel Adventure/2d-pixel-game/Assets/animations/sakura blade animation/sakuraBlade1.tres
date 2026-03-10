@@ -1,6 +1,7 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://bsi8hrda8nk62"]
 
 [ext_resource type="Texture2D" uid="uid://1regjfmrqggy" path="res://Assets/animations/sakura blade animation/SakuraBlade_anim1.png" id="1_dun47"]
+[ext_resource type="Texture2D" uid="uid://cdohglrfn6x8m" path="res://Assets/animations/sakura blade animation/SakuraBlade_anim2.png" id="2_dik1b"]
 [ext_resource type="Texture2D" uid="uid://hbavcu2xdi50" path="res://Assets/animations/bowAnimation/woodenBow_anim.png" id="2_oamje"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oamje"]
@@ -46,6 +47,30 @@ region = Rect2(900, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rukdr"]
 atlas = ExtResource("1_dun47")
 region = Rect2(1000, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6c7u"]
+atlas = ExtResource("2_dik1b")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bt1rc"]
+atlas = ExtResource("2_dik1b")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1pdw"]
+atlas = ExtResource("2_dik1b")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ciyf5"]
+atlas = ExtResource("2_dik1b")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bv2af"]
+atlas = ExtResource("2_dik1b")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tb16i"]
+atlas = ExtResource("2_dik1b")
+region = Rect2(500, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x8s4k"]
 atlas = ExtResource("2_oamje")
@@ -132,6 +157,29 @@ animations = [{
 "loop": false,
 "name": &"SakuraBlade_3",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6c7u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bt1rc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1pdw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ciyf5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bv2af")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tb16i")
+}],
+"loop": true,
+"name": &"SakuraBlade_Heavy",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,

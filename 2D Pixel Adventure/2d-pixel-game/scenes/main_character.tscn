@@ -578,9 +578,11 @@ offset = Vector2(0, -5)
 z_index = -1
 position = Vector2(-2, -5)
 sprite_frames = ExtResource("8_lotbi")
-animation = &"bow_shoot_weapon"
+animation = &"SakuraBlade_Heavy"
+frame_progress = 0.92241526
 
 [node name="PointLight2D" type="PointLight2D" parent="WeaponSprite" unique_id=1114665885]
+visible = false
 color = Color(1, 0.3647059, 1, 0.7254902)
 energy = 3.61
 texture = ExtResource("5_o67j2")
