@@ -7,7 +7,7 @@ extends CharacterBody2D
 @onready var fx_summon: AudioStreamPlayer2D = $fx_summon
 
 # --- Stats ---
-var speed = 35
+var speed = 45
 var player_chase = false
 var player = null
 var health = 1000
