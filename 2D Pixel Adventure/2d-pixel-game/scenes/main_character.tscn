@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://xqia43px1ro8" path="res://Assets/character/idle_defaultCharacter.png.png" id="5_is85u"]
 [ext_resource type="Texture2D" uid="uid://b8q5fvmykviwo" path="res://Assets/character/dead_defaultCharacter.png.png" id="5_lotbi"]
 [ext_resource type="Texture2D" uid="uid://dio433eaxu4bx" path="res://Assets/character/sakuraBlade_Attack1.png" id="5_o67j2"]
+[ext_resource type="Texture2D" uid="uid://ds1hj4ljapdts" path="res://Assets/character/dash_anim.png" id="6_nayhv"]
 [ext_resource type="AudioStream" uid="uid://ds6eaup44ujix" path="res://sounds/sound-fx/sword-blade-slicing-flesh-352708.mp3" id="7_0d0nc"]
 [ext_resource type="Texture2D" uid="uid://cfx887gdj5asc" path="res://Assets/character/walk_defaultCharacter.png.png" id="7_o67j2"]
 [ext_resource type="AudioStream" uid="uid://dcxcphfcbvpkt" path="res://sounds/sound-fx/sword-slashing-game-sound-effect-2-379229.mp3" id="8_d3a2h"]
@@ -16,7 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://dy3hir0o80742" path="res://sounds/sound-fx/bow/bow_fire.mp3" id="10_hj3w6"]
 [ext_resource type="Texture2D" uid="uid://c0w0mpr6t7dwv" path="res://png/indicator/Charging bow indicator/UI_Flat_Bar12a.png" id="11_hodpe"]
 [ext_resource type="Texture2D" uid="uid://by4ahdhnl3a0s" path="res://png/indicator/Charging bow indicator/UI_Flat_BarFill01f.png" id="12_hodpe"]
-[ext_resource type="Script" uid="uid://c43j5bl8apd6n" path="res://scenes/pick_up_area.gd" id="13_qoi8n"]
+[ext_resource type="Script" path="res://scenes/pick_up_area.gd" id="13_qoi8n"]
 [ext_resource type="AudioStream" uid="uid://dwglha2qtdqjf" path="res://sounds/sound-fx/player/freesound_community-male_hurt7-48124.mp3" id="14_pvtuh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ltrl"]
@@ -110,6 +111,34 @@ region = Rect2(200, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_oscy0"]
 atlas = ExtResource("5_g1p1k")
 region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2m6dy"]
+atlas = ExtResource("6_nayhv")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xnvc"]
+atlas = ExtResource("6_nayhv")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ip3e"]
+atlas = ExtResource("6_nayhv")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yum8o"]
+atlas = ExtResource("6_nayhv")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sj5qt"]
+atlas = ExtResource("6_nayhv")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m40x0"]
+atlas = ExtResource("6_nayhv")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikepn"]
+atlas = ExtResource("6_nayhv")
+region = Rect2(384, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g1p1k"]
 atlas = ExtResource("5_lotbi")
@@ -381,6 +410,32 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_2m6dy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xnvc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ip3e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yum8o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sj5qt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m40x0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ikepn")
+}],
+"loop": true,
+"name": &"dash",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_g1p1k")
 }, {
 "duration": 1.0,
@@ -550,7 +605,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k0aba"]
-radius = 13.0
+radius = 21.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ig48j"]
 size = Vector2(10, 10)
@@ -575,12 +630,15 @@ animation = &"bow_draw"
 offset = Vector2(0, -5)
 
 [node name="WeaponSprite" type="AnimatedSprite2D" parent="." unique_id=1574532109]
-z_index = -1
+z_index = 1
 position = Vector2(-2, -5)
 sprite_frames = ExtResource("8_lotbi")
-animation = &"bow_shoot_weapon"
+animation = &"SakuraBlade_1"
+frame = 4
+frame_progress = 1.0
 
 [node name="PointLight2D" type="PointLight2D" parent="WeaponSprite" unique_id=1114665885]
+visible = false
 color = Color(1, 0.3647059, 1, 0.7254902)
 energy = 3.61
 texture = ExtResource("5_o67j2")
@@ -683,6 +741,12 @@ stream = ExtResource("14_pvtuh")
 wait_time = 0.6
 one_shot = true
 
+[node name="dash_timer" type="Timer" parent="." unique_id=585930863]
+one_shot = true
+
+[node name="dash_cooldown_timer" type="Timer" parent="." unique_id=286921063]
+one_shot = true
+
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
@@ -696,3 +760,5 @@ one_shot = true
 [connection signal="body_entered" from="pickUpArea" to="pickUpArea" method="_on_body_entered"]
 [connection signal="body_exited" from="pickUpArea" to="pickUpArea" method="_on_body_exited"]
 [connection signal="timeout" from="combo_reset_timer" to="." method="_on_combo_reset_timer_timeout"]
+[connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="dash_cooldown_timer" to="." method="_on_dash_cooldown_timer_timeout"]
