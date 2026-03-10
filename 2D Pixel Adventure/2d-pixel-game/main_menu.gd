@@ -20,7 +20,10 @@ func _ready():
 		push_error("Quit button not found!")
 
 func _on_start():
-	get_tree().change_scene_to_file("res://main.tscn")  # ← change to your actual scene path
+	var err := get_tree().change_scene_to_file("res://main.tscn") # use your real path
+	if err != OK:
+		push_error("Failed to load scene. Error code: %s" % err)
+
 
 func _on_load():
 	# Hook up your save system here later

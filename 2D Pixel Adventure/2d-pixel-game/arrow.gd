@@ -7,6 +7,8 @@ var lifetime: float = 3.0
 var hit_something = false
 
 func _ready():
+	collision_layer = 0  # arrow body pushes nothing
+	collision_mask = 0 
 	print("=== ARROW SPAWNED ===")
 	print("  Position:", global_position)
 	print("  Direction:", direction)
@@ -35,6 +37,11 @@ func _physics_process(delta):
 		queue_free()
 
 func _on_area_2d_body_entered(body: Node2D):
+	if body == null or not is_instance_valid(body):
+		return
+	if hit_something:
+		return
+	# ... rest unchanged
 	print("--- Arrow Area2D body_entered ---")
 	print("  Body name:", body.name)
 	print("  Body type:", body.get_class())
