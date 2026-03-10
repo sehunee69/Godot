@@ -5,7 +5,58 @@
 [ext_resource type="Texture2D" uid="uid://dvm77spetvvcr" path="res://Assets/inventoryBg.png" id="2_mrqgh"]
 [ext_resource type="Texture2D" uid="uid://ca4fm1buaq8ky" path="res://Assets/slots/uncommon_Slot.png" id="2_psafj"]
 [ext_resource type="Script" uid="uid://co830w0if06q" path="res://slot.gd" id="3_5tt2m"]
+[ext_resource type="Texture2D" uid="uid://xqia43px1ro8" path="res://Assets/character/idle_defaultCharacter.png.png" id="4_qjyhv"]
 [ext_resource type="Texture2D" uid="uid://cosmv5x5edfcr" path="res://Assets/select.png" id="6_0xmy5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ho8i8"]
+atlas = ExtResource("4_qjyhv")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udyo3"]
+atlas = ExtResource("4_qjyhv")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8ig1"]
+atlas = ExtResource("4_qjyhv")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pjyi"]
+atlas = ExtResource("4_qjyhv")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhhmk"]
+atlas = ExtResource("4_qjyhv")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4epum"]
+atlas = ExtResource("4_qjyhv")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kucie"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ho8i8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udyo3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8ig1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2pjyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhhmk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4epum")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5tt2m"]
 texture = ExtResource("2_psafj")
@@ -60,6 +111,14 @@ position = Vector2(132, 44)
 scale = Vector2(5.833333, 3.2500002)
 texture = ExtResource("2_mrqgh")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TextureRect" unique_id=2076693297]
+z_index = 1
+position = Vector2(29.000002, 36.000004)
+scale = Vector2(1.35, 1.4599999)
+sprite_frames = SubResource("SpriteFrames_kucie")
+animation = &"idle"
+frame_progress = 0.27959293
+
 [node name="ScrollContainer" type="ScrollContainer" parent="TextureRect" unique_id=157850491]
 layout_mode = 0
 offset_left = 63.0
@@ -84,12 +143,12 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot" unique_id=1581244220]
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot" unique_id=1581244220]
 visible = false
 position = Vector2(12, 12)
 sprite_frames = SubResource("SpriteFrames_ho8i8")
 animation = &"select"
-frame_progress = 0.67162555
+frame_progress = 0.255374
 
 [node name="Slot2" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=1569315277]
 custom_minimum_size = Vector2(24, 24)
@@ -97,11 +156,25 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
 
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot2" unique_id=1827718285]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
+
 [node name="Slot3" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=2033214498]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
+
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot3" unique_id=1118598941]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
 
 [node name="Slot4" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=1714415035]
 custom_minimum_size = Vector2(24, 24)
@@ -109,11 +182,25 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
 
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot4" unique_id=1475542745]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
+
 [node name="Slot5" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=103411792]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
+
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot5" unique_id=1159587658]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
 
 [node name="Slot6" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=1955433667]
 custom_minimum_size = Vector2(24, 24)
@@ -121,11 +208,25 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
 
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot6" unique_id=2140357631]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
+
 [node name="Slot7" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=168678018]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
+
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot7" unique_id=236886964]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
 
 [node name="Slot8" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=1991389187]
 custom_minimum_size = Vector2(24, 24)
@@ -133,11 +234,25 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
 
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot8" unique_id=1807247117]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
+
 [node name="Slot9" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=548915711]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
+
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot9" unique_id=1325110819]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
 
 [node name="Slot10" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=799272561]
 custom_minimum_size = Vector2(24, 24)
@@ -145,11 +260,25 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
 
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot10" unique_id=1400099942]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
+
 [node name="Slot11" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=932008701]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
+
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot11" unique_id=1454170788]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
 
 [node name="Slot12" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=71541795]
 custom_minimum_size = Vector2(24, 24)
@@ -157,11 +286,25 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
 
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot12" unique_id=176727189]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
+
 [node name="Slot13" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=961448940]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
+
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot13" unique_id=526644650]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
 
 [node name="Slot14" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=12903060]
 custom_minimum_size = Vector2(24, 24)
@@ -169,11 +312,25 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
 
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot14" unique_id=1833306182]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
+
 [node name="Slot15" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=1113384520]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
+
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot15" unique_id=1324746457]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
 
 [node name="Slot16" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=564727889]
 custom_minimum_size = Vector2(24, 24)
@@ -181,11 +338,25 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
 
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot16" unique_id=1011642863]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
+
 [node name="Slot17" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=403675205]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
+
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot17" unique_id=881503532]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
 
 [node name="Slot18" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=236675867]
 custom_minimum_size = Vector2(24, 24)
@@ -193,17 +364,38 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
 
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot18" unique_id=2136005861]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
+
 [node name="Slot19" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=396220181]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
 
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot19" unique_id=1540004041]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
+
 [node name="Slot20" type="Panel" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer" unique_id=1577557450]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5tt2m")
 script = ExtResource("3_5tt2m")
+
+[node name="hover_sprite" type="AnimatedSprite2D" parent="TextureRect/ScrollContainer/MarginContainer/GridContainer/Slot20" unique_id=1481592722]
+visible = false
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_ho8i8")
+animation = &"select"
+frame_progress = 0.5509222
 
 [node name="InventoryBg2" type="Sprite2D" parent="TextureRect" unique_id=1404308001]
 position = Vector2(29.000008, 30.999985)

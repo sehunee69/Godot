@@ -14,6 +14,7 @@ func _ready():
 	print("  Collision Mask:", collision_mask)
 
 func _physics_process(delta):
+	print("ARROW POS: ", global_position, " | PLAYER POS: ", get_tree().get_nodes_in_group("player")[0].global_position)
 	if hit_something:
 		return
 	lifetime -= delta
