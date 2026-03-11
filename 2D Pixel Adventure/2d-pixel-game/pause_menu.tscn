@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cyq24h16yvvqp"]
 
 [ext_resource type="Script" uid="uid://d0bysstg1t0e" path="res://pause_menu.gd" id="1_hdmo1"]
-[ext_resource type="Texture2D" uid="uid://l138nt0w77rt" path="res://Assets/UI/PlayButton.png" id="2_05uyy"]
-[ext_resource type="Texture2D" uid="uid://mcwevffnkjfn" path="res://Assets/UI/PlayButton_Pressed.png" id="3_2nc7s"]
-[ext_resource type="Texture2D" uid="uid://2ssen62jyrrl" path="res://Assets/UI/Menu_Ui.png" id="3_p81d2"]
+[ext_resource type="Texture2D" uid="uid://l138nt0w77rt" path="res://UI/PlayButton.png" id="2_05uyy"]
+[ext_resource type="Texture2D" uid="uid://mcwevffnkjfn" path="res://UI/PlayButton_Pressed.png" id="3_2nc7s"]
+[ext_resource type="Texture2D" uid="uid://2ssen62jyrrl" path="res://UI/Menu_Ui.png" id="3_p81d2"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2nc7s"]
 texture = ExtResource("2_05uyy")
@@ -24,27 +24,13 @@ texture = ExtResource("3_2nc7s")
 process_mode = 3
 script = ExtResource("1_hdmo1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1890332787]
-process_mode = 3
+[node name="Label" type="Label" parent="." unique_id=1705558217]
+offset_top = 58.0
 offset_right = 365.0
-offset_bottom = 210.0
-alignment = 1
-
-[node name="Label" type="Label" parent="VBoxContainer" unique_id=1705558217]
-layout_mode = 2
+offset_bottom = 81.0
 text = "PAUSED"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Resume" type="Button" parent="VBoxContainer" unique_id=420444424]
-process_mode = 3
-layout_mode = 2
-text = "Resume"
-
-[node name="Settings" type="Button" parent="VBoxContainer" unique_id=206367769]
-process_mode = 3
-layout_mode = 2
-text = "Settings"
 
 [node name="Resume" type="Button" parent="." unique_id=989234633]
 offset_left = 140.0

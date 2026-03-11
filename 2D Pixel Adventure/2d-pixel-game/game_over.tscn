@@ -1,6 +1,18 @@
 [gd_scene format=3 uid="uid://542l435c363c"]
 
 [ext_resource type="Script" uid="uid://p3gbqnruprja" path="res://game_over.gd" id="1_y26ei"]
+[ext_resource type="Texture2D" uid="uid://dnbqijfojcp1l" path="res://UI/GameOver.png" id="2_yxx3c"]
+[ext_resource type="Texture2D" uid="uid://l138nt0w77rt" path="res://UI/PlayButton.png" id="3_8u835"]
+[ext_resource type="Texture2D" uid="uid://mcwevffnkjfn" path="res://UI/PlayButton_Pressed.png" id="4_ftari"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_28vn7"]
+texture = ExtResource("3_8u835")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k2vha"]
+texture = ExtResource("4_ftari")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fkf4o"]
+texture = ExtResource("4_ftari")
 
 [node name="game_over" type="CanvasLayer" unique_id=1898097847]
 process_mode = 3
@@ -17,11 +29,6 @@ offset_right = 358.0
 offset_bottom = 206.0
 alignment = 1
 
-[node name="Label" type="Label" parent="ColorRect/VBoxContainer" unique_id=236339047]
-layout_mode = 2
-text = "GAME OVER! YOU DIED"
-horizontal_alignment = 1
-
 [node name="Button" type="Button" parent="ColorRect/VBoxContainer" unique_id=1975919148]
 layout_mode = 2
 text = "RETRY"
@@ -33,3 +40,51 @@ text = "Main Menu"
 [node name="Button2" type="Button" parent="ColorRect/VBoxContainer" unique_id=1308266866]
 layout_mode = 2
 text = "QUIT"
+
+[node name="Label" type="Label" parent="." unique_id=236339047]
+z_index = 1
+offset_left = 112.0
+offset_top = 40.0
+offset_right = 244.0
+offset_bottom = 63.0
+theme_override_font_sizes/font_size = 10
+text = "GAME OVER! YOU DIED"
+horizontal_alignment = 1
+
+[node name="GameOver" type="Sprite2D" parent="." unique_id=194984575]
+position = Vector2(179, 114)
+scale = Vector2(1.19, 1.1466666)
+texture = ExtResource("2_yxx3c")
+
+[node name="Retry" type="Button" parent="GameOver" unique_id=1806314742]
+offset_left = -44.537823
+offset_top = -40.988377
+offset_right = 46.218464
+offset_bottom = -18.313957
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_28vn7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_k2vha")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fkf4o")
+text = "Retry"
+
+[node name="MainMenu" type="Button" parent="GameOver" unique_id=570490653]
+offset_left = -44.53781
+offset_top = -11.3372135
+offset_right = 46.218475
+offset_bottom = 11.337206
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_28vn7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_k2vha")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fkf4o")
+text = "Main Menu"
+
+[node name="Quit" type="Button" parent="GameOver" unique_id=1347974655]
+offset_left = -44.53781
+offset_top = 17.441853
+offset_right = 46.218475
+offset_bottom = 40.116272
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_28vn7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_k2vha")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fkf4o")
+text = "Quit"

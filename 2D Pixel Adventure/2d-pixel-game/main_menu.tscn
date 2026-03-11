@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://l138nt0w77rt" path="res://Assets/UI/PlayButton.png" id="2_fu7sn"]
 [ext_resource type="Texture2D" uid="uid://mcwevffnkjfn" path="res://Assets/UI/PlayButton_Pressed.png" id="3_glbon"]
 [ext_resource type="Texture2D" uid="uid://dmuyh3b05s78t" path="res://Assets/UI/title_screen.jpg" id="3_jix8l"]
+[ext_resource type="Texture2D" uid="uid://mcwevffnkjfn" path="res://UI/PlayButton_Pressed.png" id="4_glbon"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nlkkf"]
 texture = ExtResource("2_fu7sn")
@@ -18,6 +19,7 @@ texture = ExtResource("2_fu7sn")
 texture = ExtResource("2_fu7sn")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8qtwp"]
+texture = ExtResource("4_glbon")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dy7ct"]
 texture = ExtResource("2_fu7sn")

@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://5wh4x8s033im" path="res://oderAreaTest.gd" id="10_dg77c"]
 [ext_resource type="PackedScene" uid="uid://ce716scw8yhvb" path="res://hud.tscn" id="11_efxa6"]
 [ext_resource type="PackedScene" uid="uid://b41oyttc6w8m8" path="res://flying_demon.tscn" id="13_w48qg"]
-[ext_resource type="PackedScene" path="res://item_drop.tscn" id="13_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://duwwcq6rjifh1" path="res://item_drop.tscn" id="13_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://cskiunt7gqbvr" path="res://slime.tscn" id="14_w48qg"]
 [ext_resource type="PackedScene" uid="uid://bervci4suwstm" path="res://overworld_portal.tscn" id="15_vivmo"]
 [ext_resource type="PackedScene" uid="uid://bisy6t36kka45" path="res://undead_executioner.tscn" id="16_2cqfq"]
@@ -569,7 +569,7 @@ y_sort_enabled = true
 position = Vector2(108, 122)
 
 [node name="player" parent="." unique_id=2099649226 instance=ExtResource("3_h2yge")]
-position = Vector2(365, -114.99994)
+position = Vector2(-1780, 1802)
 scale = Vector2(1.2, 1.2)
 collision_mask = 361
 
