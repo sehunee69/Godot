@@ -567,7 +567,7 @@ func _fire_arrow():
 func _dash_pressed() -> bool:
 	if InputMap.has_action("dash") and Input.is_action_just_pressed("dash"):
 		return true
-	return Input.is_key_pressed(KEY_L) or Input.is_joy_button_pressed(0, JOY_BUTTON_B)
+	return Input.is_action_just_pressed("dash")
 
 func _try_start_dash() -> void:
 	if not _dash_pressed():
@@ -769,7 +769,7 @@ func player():
 
 func _on_area_2d_body_entered(_body):
 	pass
-
+	
 func _on_attack_lunge_timer_timeout():
 	match current_dir:
 		"right": lunge_force = Vector2(lunge_strength, 0)

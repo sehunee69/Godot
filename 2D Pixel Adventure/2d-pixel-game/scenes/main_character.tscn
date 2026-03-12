@@ -654,6 +654,7 @@ energy = 3.61
 texture = ExtResource("5_o67j2")
 
 [node name="player_hitbox" type="Area2D" parent="." unique_id=1515897014]
+visible = false
 collision_layer = 2
 collision_mask = 56
 
@@ -697,6 +698,7 @@ wait_time = 1.5
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1274304559]
+visible = false
 z_index = 1
 position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_ig48j")
@@ -736,6 +738,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="pickUpArea" type="Area2D" parent="." unique_id=860269562]
+visible = false
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("13_qoi8n")
