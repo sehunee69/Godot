@@ -8,11 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://dw8dtocnd66vc" path="res://scenes/enemy.tscn" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://currk5bfckevf" path="res://tile image/Pixel fantasy world Demo/Tileset/Illustration22.png" id="4_4c57u"]
 [ext_resource type="AudioStream" uid="uid://c7ssopquu0k4f" path="res://sounds/bg-music/medieval-ambient-236809.mp3" id="5_lquwl"]
+[ext_resource type="Texture2D" uid="uid://bq06stfp16bl1" path="res://world/fences.png" id="6_getpj"]
 [ext_resource type="Script" uid="uid://q1h4eold4xf3" path="res://oderArea.gd" id="9_efxa6"]
 [ext_resource type="Script" uid="uid://5wh4x8s033im" path="res://oderAreaTest.gd" id="10_dg77c"]
 [ext_resource type="PackedScene" uid="uid://ce716scw8yhvb" path="res://hud.tscn" id="11_efxa6"]
 [ext_resource type="PackedScene" uid="uid://b41oyttc6w8m8" path="res://flying_demon.tscn" id="13_w48qg"]
-[ext_resource type="PackedScene" uid="uid://duwwcq6rjifh1" path="res://item_drop.tscn" id="13_ycdy4"]
+[ext_resource type="PackedScene" path="res://item_drop.tscn" id="13_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://cskiunt7gqbvr" path="res://slime.tscn" id="14_w48qg"]
 [ext_resource type="PackedScene" uid="uid://bervci4suwstm" path="res://overworld_portal.tscn" id="15_vivmo"]
 [ext_resource type="PackedScene" uid="uid://bisy6t36kka45" path="res://undead_executioner.tscn" id="16_2cqfq"]
@@ -479,12 +480,61 @@ margins = Vector2i(1, 0)
 1:3/0 = 0
 0:3/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ryguw"]
+texture = ExtResource("6_getpj")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_7mycd"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_1bvp3")
 sources/1 = SubResource("TileSetAtlasSource_lquwl")
 sources/2 = SubResource("TileSetAtlasSource_272bh")
 sources/3 = SubResource("TileSetAtlasSource_ycdy4")
+sources/4 = SubResource("TileSetAtlasSource_ryguw")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d13ii"]
+texture = ExtResource("6_getpj")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+1:3/0/y_sort_origin = 2
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-3.860942, 1.8036222, 8, 1.612155, 8, 4.819235, -3.9088087, 4.771368)
+2:3/0 = 0
+2:3/0/y_sort_origin = 2
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 1.8036222, 8, 1.612155, 8, 4.819235, -8, 4.9628353)
+3:3/0 = 0
+3:3/0/y_sort_origin = 2
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 1.8036222, 4.9465637, 1.8514891, 5.090164, 4.723501, -8, 4.9628353)
+
+[sub_resource type="TileSet" id="TileSet_1u8w0"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_d13ii")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w48qg"]
 radius = 15.6285
@@ -504,8 +554,17 @@ size = Vector2(140.5, 9)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1u8w0"]
 size = Vector2(225, 3)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0odxb"]
+size = Vector2(24.5, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lswn8"]
+size = Vector2(41, 3)
+
 [node name="Node" type="Node2D" unique_id=1792861452]
 y_sort_enabled = true
+
+[node name="slime3" parent="." unique_id=614081513 instance=ExtResource("14_w48qg")]
+position = Vector2(-1429, 2504)
 
 [node name="TileMap" type="Node2D" parent="." unique_id=267899845]
 z_as_relative = false
@@ -535,6 +594,14 @@ tile_set = SubResource("TileSet_7mycd")
 collision_enabled = false
 collision_visibility_mode = 1
 
+[node name="fenceL" type="TileMapLayer" parent="TileMap" unique_id=1901912676]
+z_index = 4
+z_as_relative = false
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAcAAgAAAABAAMAAAAdAAgAAAACAAMAAAAeAAgAAAADAAMAAAAlAAgAAAADAAMAAAAkAAgAAAACAAMAAAAjAAgAAAABAAMAAAAfAAoAAAABAAMAAAAgAAoAAAACAAMAAAAhAAoAAAADAAMAAAAcAAoAAAADAAMAAAAbAAoAAAABAAMAAAAgAAgAAAABAAMAAAAhAAgAAAADAAMAAAAkAAoAAAADAAMAAAAjAAoAAAABAAMAAAAmAAoAAAAAAAMAAAAaAAgAAAAAAAMAAAA=")
+tile_set = SubResource("TileSet_1u8w0")
+collision_enabled = false
+
 [node name="treeL" type="TileMapLayer" parent="TileMap" unique_id=1905965972]
 z_index = 2
 z_as_relative = false
@@ -545,12 +612,6 @@ tile_set = SubResource("TileSet_7mycd")
 
 [node name="barrel" parent="TileMap" unique_id=910242804 instance=ExtResource("18_074og")]
 position = Vector2(217, 273)
-
-[node name="slime" parent="TileMap" unique_id=655486861 instance=ExtResource("14_w48qg")]
-position = Vector2(-1309, 2419)
-
-[node name="slime2" parent="TileMap" unique_id=614081513 instance=ExtResource("14_w48qg")]
-position = Vector2(-1429, 2504)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=76248770]
 scale = Vector2(2, 2)
@@ -569,9 +630,16 @@ y_sort_enabled = true
 position = Vector2(108, 122)
 
 [node name="player" parent="." unique_id=2099649226 instance=ExtResource("3_h2yge")]
-position = Vector2(-1780, 1802)
+position = Vector2(328, 158)
 scale = Vector2(1.2, 1.2)
 collision_mask = 361
+dash_speed = 140.0
+dash_cooldown = 0.45
+dash_stamina_cost = 25.0
+max_stamina = 100.0
+stamina_regen_per_sec = 18.0
+attack_stamina_cost = 30.0
+special_stamina_cost = 20.0
 
 [node name="enemy2" parent="." unique_id=674521427 instance=ExtResource("4_1bvp3")]
 z_index = 1
@@ -678,6 +746,7 @@ position = Vector2(602, 83)
 position = Vector2(367, -40)
 
 [node name="UnderBridgeTrigger" type="Area2D" parent="." unique_id=149568881]
+visible = false
 collision_layer = 256
 collision_mask = 10
 script = ExtResource("19_cegan")
@@ -687,6 +756,7 @@ position = Vector2(481, 170)
 shape = SubResource("RectangleShape2D_82xsv")
 
 [node name="OnBridgeTrigger" type="Area2D" parent="." unique_id=726937873]
+visible = false
 z_index = 3
 collision_layer = 256
 collision_mask = 10
@@ -719,6 +789,18 @@ shape = SubResource("RectangleShape2D_d13ii")
 position = Vector2(520.5, 135.5)
 shape = SubResource("RectangleShape2D_1u8w0")
 
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="BridgeTopWall" unique_id=1347134013]
+position = Vector2(448.5, 170.5)
+shape = SubResource("RectangleShape2D_0odxb")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="BridgeTopWall" unique_id=109231979]
+position = Vector2(576.75, 170)
+shape = SubResource("RectangleShape2D_0odxb")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="BridgeTopWall" unique_id=1924998855]
+position = Vector2(520.5, 170)
+shape = SubResource("RectangleShape2D_lswn8")
+
 [node name="barrel10" parent="." unique_id=1649066909 instance=ExtResource("18_074og")]
 position = Vector2(-267, 86)
 
@@ -750,6 +832,9 @@ position = Vector2(-942, 2511)
 [node name="portal" parent="." unique_id=432506030 instance=ExtResource("20_82xsv")]
 z_index = 1
 position = Vector2(550, -151)
+
+[node name="slime2" parent="." unique_id=655486861 instance=ExtResource("14_w48qg")]
+position = Vector2(-1309, 2419)
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
