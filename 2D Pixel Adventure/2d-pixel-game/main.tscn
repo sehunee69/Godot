@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://b1n2gyqvgqfew" path="res://barrel.tscn" id="18_074og"]
 [ext_resource type="Script" uid="uid://c6ow3vffo0nwr" path="res://bridge_trigger.gd" id="19_cegan"]
 [ext_resource type="PackedScene" uid="uid://dp0uw60s5uclv" path="res://portal.tscn" id="20_82xsv"]
+[ext_resource type="Texture2D" uid="uid://doi4gv7b1yppd" path="res://Assets/Ninja Adventure - Asset Pack/FX/Particle/Leaf.png" id="24_1u8w0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("1_0xm2m")
@@ -1280,6 +1281,19 @@ size = Vector2(24.5, 3)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lswn8"]
 size = Vector2(41, 3)
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0odxb"]
+particles_animation = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_lswn8"]
+offsets = PackedFloat32Array(0, 0.1637324, 0.7834507, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a6jrf"]
+gradient = SubResource("Gradient_lswn8")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d13ii"]
 particle_flag_disable_z = true
 emission_shape = 3
@@ -1287,7 +1301,13 @@ emission_box_extents = Vector3(1000, 500, 1)
 spread = 20.0
 initial_velocity_min = 20.0
 initial_velocity_max = 80.0
+angular_velocity_min = -1.6093254e-05
+angular_velocity_max = 49.99998
 gravity = Vector3(0, 10, 0)
+scale_min = 0.5
+scale_max = 1.1999999
+color_ramp = SubResource("GradientTexture1D_a6jrf")
+anim_offset_max = 1.0
 
 [node name="Node" type="Node2D" unique_id=1792861452]
 y_sort_enabled = true
@@ -1296,7 +1316,6 @@ y_sort_enabled = true
 position = Vector2(-1429, 2504)
 
 [node name="TileMap" type="Node2D" parent="." unique_id=267899845]
-visible = false
 z_as_relative = false
 y_sort_enabled = true
 
@@ -1586,7 +1605,9 @@ position = Vector2(-5424, 2058)
 position = Vector2(-5433, 1898)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=127632417]
+material = SubResource("CanvasItemMaterial_0odxb")
 amount = 50
+texture = ExtResource("24_1u8w0")
 visibility_rect = Rect2(-1000, -500, 2150, 900)
 process_material = SubResource("ParticleProcessMaterial_d13ii")
 
