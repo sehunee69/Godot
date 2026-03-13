@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bn45scd8yu221"
+path="res://.godot/imported/Dog.wav-91e2e71e4cfd92fcb9e3a4a958bd5aa2.sample"
+
+[deps]
+
+source_file="res://Assets/Ninja Adventure - Asset Pack/Audio/Sounds/Creature/Dog.wav"
+dest_files=["res://.godot/imported/Dog.wav-91e2e71e4cfd92fcb9e3a4a958bd5aa2.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
